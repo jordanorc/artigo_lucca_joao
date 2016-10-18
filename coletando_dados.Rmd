@@ -1,0 +1,94 @@
+---
+title: "Coletando dados"
+author: 
+- Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho
+header-includes:
+   - \setlength\parindent{24pt}
+   - \usepackage[english, brazil]{babel}
+date: \today
+output: 
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+bibliography: bib_artigo_macroeconometria.bib
+cls: abntex2
+---
+
+```{r setup, include=TRUE, tidy = TRUE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE,
+                warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
+```
+
+Os dados podem ser coletados usando o pacote 'GetHFData' desenvolvido por @perlin_gethfdata:_2016. Para maiores detalhes sobre o pacote veja também @perlin_gethfdata:_2016-1. Primeiramente baixaremos os *layouts* da base de dados usando o comando `gthf_download_file`.
+
+```{r layouts}
+library(GetHFData)
+layout_negocios <- 'ftp://ftp.bmf.com.br/MarketData/NEG_LAYOUT_portuguese.txt'
+ghfd_download_file(layout_negocios, out.file = 'layout_negocios')
+layout_oferta_compra <- 'ftp://ftp.bmf.com.br/MarketData/OFER_CPA_LAYOUT_portuguese.txt'
+ghfd_download_file(layout_oferta_compra, out.file = 'layout_oferta_compra')
+layout_oferta_venda <- 'ftp://ftp.bmf.com.br/MarketData/OFER_VDA_LAYOUT_portuguese.txt'
+ghfd_download_file(layout_oferta_venda, out.file = 'layout_oferta_venda')
+```
+`Attempt 1` e `TRUE` significam que o download na primeira tentativa foi realizado com sucesso. 
+A mensagem `File exists, skipping dl` aparece quando o comando for acionado pela segunda vez e portanto o documento já foi baixado. Os arquivos de *layout* podem ser abertos pelo bloco de notas.
+
+O comando `ghfd_get_ftp_contents` acessa o ftp da Bovespa e retorna um vetor com todos os arquivos relacionadosm à negócios (todos os outros são ignorados).
+
+```{r contents_bovespa}
+library("GetHFData")
+contents_equity <- ghfd_get_ftp_contents(type.market = "equity")
+contents_options <- ghfd_get_ftp_contents(type.market = "options")
+contents_bmf <- ghfd_get_ftp_contents(type.market = "BMF")
+
+```
+Usando os comandos `head`e `tail` podemos ver os 6 primiros e 6 últimos elementos dos arquivos baixados anteriormente.
+
+```{r head_tail_contents}
+head(contents_equity)
+tail(contents_equity)
+
+```
+O primeiro dia disponível para o mercado de ações (*equity*) é 2014-11-03 e o último é 2016-08-30. Os arquivos `.zip` armazenam dados das transações diárias e obviamente somente de segunda à sexta-feira.
+
+Para sabermos os *tickers* (nomes dos ativos transacionados, ex. para o mercado de ações `PETR4`, é um *ticker* para ações da PETROBRAS) podemos usar o comando `ghfd_get_available_tickers_from_file` que obtém os *tickers* disponíveis de um arquivo baixado do ftp da Bovespa ou podemos usar o comando `ghfd_get_available_tickers_from_ftp` que obtém os *tickers* disponíveis em um mercado e uma data específicos. Os dois comandos apresentam como resultado um vetor numérico com os tickers e outro com o número de transações de cada *ticker*.
+
+```{r tickers}
+tickers_equity <- ghfd_get_available_tickers_from_ftp(my.date = "2015-11-03",
+type.market = "equity", max.dl.tries = 10)
+head(tickers_equity)
+
+```
+Existem `r nrow(tickers_equity)` *tickers* para o mercado de ações na data especificada.
+
+Para baixar os dados de transações de alta frequência e agregá-los para análise usamos o comando `ghfd_get_HF_data`. Para exemplo usarei os três *tickers* mais comercializados no mercado de ações em 03/11/2015, coletados no período de 30/06/2016 a 30/08/2016.
+
+```{r baixando_dados, eval = FALSE, tidy = TRUE}
+dados_top3 <- ghfd_get_HF_data(c('PETR4', 'ITUB4', 'BVMF3'), type.market = 'equity', first.date = as.Date('2016-06-30'), last.date = as.Date('2016-08-30'),
+first.time = "9:00:00", last.time = "18:00:00", type.output = "agg",
+agg.diff = "1 hour", dl.dir = "ftp files", max.dl.tries = 10,
+clean.files = FALSE)
+```
+```{r}
+load('dados_top3.Rda')
+head(dados_top3, n = 3)
+tail(dados_top3, n = 3)
+```
+
+Por fim o comando `ghfd_read_file` baixa os dados na sua forma bruta, ou seja apenas lê o arquivo `.zip` baixado do ftp da Bovespa.
+
+```{r raw_data}
+library('GetHFData')
+path <- path.expand("~/artigo_macroeconometria_lucca_joao/ftp files/NEG_20160830.zip")
+dados_bruto <- ghfd_read_file(out.file = path, my.assets = NULL, first.time = "10:00:00",last.time = "17:00:00", type.output = "raw")
+head(dados_bruto)
+tail(dados_bruto)
+head(dados_bruto[,5:8])
+tail(dados_bruto[,9:10])
+```
+
+
+#Referências {-}
+\setlength{\parindent}{0in}
+
