@@ -1,5 +1,5 @@
 ---
-title: "Coletando dados"
+title: "Coletando dados financeiros"
 author: 
 - Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho
 header-includes:
@@ -11,8 +11,8 @@ output:
     fig_caption: yes
     keep_tex: yes
     number_sections: yes
+    toc: yes
 bibliography: bib_artigo_macroeconometria.bib
-cls: abntex2
 ---
 
 ```{r setup, include=TRUE, tidy = TRUE}
@@ -20,7 +20,9 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE,
                 warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
 ```
 
-Os dados podem ser coletados usando o pacote 'GetHFData' desenvolvido por @perlin_gethfdata:_2016. Para maiores detalhes sobre o pacote veja também @perlin_gethfdata:_2016-1. Primeiramente baixaremos os *layouts* da base de dados usando o comando `gthf_download_file`.
+#Coletando dados usando o pacote `GetHFData`
+
+Os dados podem ser coletados usando o pacote `GetHFData` desenvolvido por @perlin_gethfdata:_2016. Para maiores detalhes sobre o pacote veja também @perlin_gethfdata:_2016-1. Primeiramente baixaremos os *layouts* da base de dados usando o comando `gthf_download_file`.
 
 ```{r layouts}
 library(GetHFData)
@@ -43,7 +45,7 @@ contents_options <- ghfd_get_ftp_contents(type.market = "options")
 contents_bmf <- ghfd_get_ftp_contents(type.market = "BMF")
 
 ```
-Usando os comandos `head`e `tail` podemos ver os 6 primiros e 6 últimos elementos dos arquivos baixados anteriormente.
+Usando os comandos `head` e `tail` podemos ver os 6 primeiros e 6 últimos elementos dos arquivos baixados anteriormente.
 
 ```{r head_tail_contents}
 head(contents_equity)
@@ -76,7 +78,7 @@ head(dados_top3, n = 3)
 tail(dados_top3, n = 3)
 ```
 
-Por fim o comando `ghfd_read_file` baixa os dados na sua forma bruta, ou seja apenas lê o arquivo `.zip` baixado do ftp da Bovespa.
+Por fim o comando `ghfd_read_file` baixa os dados na sua forma bruta, ou seja apenas lê o arquivo `.zip` baixado do ftp da Bovespa. Nesta opção fica disponível o código da corretora que efetuou a transação.
 
 ```{r raw_data}
 library('GetHFData')
@@ -88,7 +90,20 @@ head(dados_bruto[,5:8])
 tail(dados_bruto[,9:10])
 ```
 
+# Coletando dados usando `quantmod`
 
-#Referências {-}
+Dados do mercado financeiro podem ser baixados por um outro pacote chamado `quantmod`.
+Este pacote baixa os dados de fontes como o Yahoo Finance, Goole Finace e diversas outras fontes [@tsay_introduction_2012]. A forma que este pacote trabalha á diferente do pacote `GetHFData`. Com o `quantmod` não é necessário designar objetos, pois este pacote trabalha com objetos ocultos. Segue uma demonstração:
+```{r demo_quantmod}
+library(quantmod)
+getSymbols(c("PETR4", "ITUB4", "BVMF3"), src = "google", env = globalenv())
+head(PETR4)
+tail(BVMF3)
+dim(ITUB4)
+```
+Podemos perceber que os dados fornecidos pelo Google Finance são diários e iniciam em 2007, porém as últimas datas não estão disponíveis para dados com fonte no Google Finance (não sei porquê) e os dados para ativos financeiros brasileiros até a data de escrita deste documento só foram encontrados no Google Finance. Realizei o comando `tail` para os demais ativos e estes também não apresentaram as datas mais recentes. Esta base de dados também não fornece os dados brutos com discriminação por corretora como na seção anterior.
+Para mais detalhes sobre o pacote `quantmod` veja @ryan_quantmod:_2016 
+
+# Referências {-}
 \setlength{\parindent}{0in}
 
