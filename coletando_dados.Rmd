@@ -101,8 +101,36 @@ head(PETR4)
 tail(BVMF3)
 dim(ITUB4)
 ```
-Podemos perceber que os dados fornecidos pelo Google Finance são diários e iniciam em 2007, porém as últimas datas não estão disponíveis para dados com fonte no Google Finance (não sei porquê) e os dados para ativos financeiros brasileiros até a data de escrita deste documento só foram encontrados no Google Finance. Realizei o comando `tail` para os demais ativos e estes também não apresentaram as datas mais recentes. Esta base de dados também não fornece os dados brutos com discriminação por corretora como na seção anterior.
-Para mais detalhes sobre o pacote `quantmod` veja @ryan_quantmod:_2016 
+Podemos perceber que os dados fornecidos pelo Google Finance são diários e iniciam em 2007, porém alguns intervalos de datas não estão disponíveis para dados com fonte no Google Finance (provavelmente por conflito de feriados) e os dados para ativos financeiros brasileiros até a data de escrita deste documento só foram encontrados no Google Finance. Realizei o comando `tail` para os demais ativos e estes também não apresentaram as datas mais recentes. Esta base de dados também não fornece o preço ajustado (para ativos financeiros brasileiros) e os dados brutos com discriminação por corretora como na seção anterior. Além disso ao utilizar o pacote `bizdays` que estabelece os dias úteis para o mercado financeiro brasileiro com base no caendário da AMBIMA ainda existe algum conflito entre os dias úteis apresentados pelo Google Finance e pelo `bizdays`.
+Para mais detalhes sobre o pacote `quantmod` veja @ryan_quantmod:_2016. 
+
+# Organizando a base de dados
+
+A partir de agora urilizarei os dados obtidos usando o pacote `GetHFData` devido ao problema com o pacote `quantmod`relatado anteriormente. a base de dados `dados_top3` contém as informações sobre os trê ativos `PETR4, ITUB4, BVMF3` no mesmo banco de dados.
+Portanto temos que separar este banco de dados em três outros arquivos cada um com informações a respeito de apenas um tipo de ação.
+
+Para isso podemos utilizar a função `filter()` do pacote `dplyr`. O banco de dados `dados_top3` possui dimensão (`r dim(dados_top3)`). 
+
+```{r separando_dados}
+library(dplyr)
+PETR4_data <- filter(dados_top3, InstrumentSymbol == 'PETR4')
+BVMF3_data <- filter(dados_top3, InstrumentSymbol == 'BVMF3')
+ITUB4_data <- filter(dados_top3, InstrumentSymbol == 'ITUB4')
+```
+Então ele será dividido em três bancos de dados de mesma dimensão (`r dim(PETR4_data)`).
+
+## Plotando os retornos dos ativos
+
+```{r plots, fig.align = 'center',fig.pos = 'h', fig.cap = 'Retornos doa ativos', tidy = TRUE, tidy.opts = list(width.cutoff = 65)}
+library(ggplot2)
+library(gridExtra)
+plot_PETR4 <- ggplot(PETR4_data, aes(TradeDateTime, period.ret)) + geom_line() +  scale_x_datetime(date_labels = "%Y-%m-%d %H:%M:%S") + xlab("") + ylab("PETR4") + theme(axis.text.x = element_text( size = 7, vjust = 0.7, hjust = 0.9))
+plot_BVMF3 <- ggplot(BVMF3_data, aes(TradeDateTime, period.ret)) + geom_line() +  scale_x_datetime(date_labels = "%Y-%m-%d %H:%M:%S") + xlab("") + ylab("BVMF3") + theme(axis.text.x = element_text( size = 7, vjust = 0.7, hjust = 0.9))
+plot_ITUB4 <- ggplot(ITUB4_data, aes(TradeDateTime, period.ret)) + geom_line() +  scale_x_datetime(date_labels = "%Y-%m-%d %H:%M:%S") + xlab("") + ylab("ITUB4") + theme(axis.text.x = element_text( size = 7, vjust = 0.7, hjust = 0.9))
+grid.arrange(plot_PETR4, plot_BVMF3, plot_ITUB4, name = 'Retornos das ações', nrow = 3)
+```
+Visualente podemos perceber que os retornos oscilam em torno de zero e que esporadicamente ocorrems valores extremos.
+
 
 # Referências {-}
 \setlength{\parindent}{0in}

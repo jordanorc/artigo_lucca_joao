@@ -1,0 +1,639 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\hypersetup{unicode=true,
+            pdftitle={Coletando dados financeiros},
+            pdfauthor={Lucca Simeoni Pavan  João Carlos de Carvalho},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Coletando dados financeiros}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{\today}
+
+
+\setlength\parindent{24pt}
+\usepackage[english, brazil]{babel}
+
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr::opts_chunk$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{echo =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{cache =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{warning =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{message =} \OtherTok{FALSE}\NormalTok{, }
+    \DataTypeTok{error =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{tidy =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{tidy.opts =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{width.cutoff =} \DecValTok{70}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\section{\texorpdfstring{Coletando dados usando o pacote
+\texttt{GetHFData}}{Coletando dados usando o pacote GetHFData}}\label{coletando-dados-usando-o-pacote-gethfdata}
+
+Os dados podem ser coletados usando o pacote \texttt{GetHFData}
+desenvolvido por Perlin (2016). Para maiores detalhes sobre o pacote
+veja também Perlin and Ramos (2016). Primeiramente baixaremos os
+\emph{layouts} da base de dados usando o comando
+\texttt{gthf\_download\_file}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(GetHFData)}
+\NormalTok{layout_negocios <-}\StringTok{ "ftp://ftp.bmf.com.br/MarketData/NEG_LAYOUT_portuguese.txt"}
+\KeywordTok{ghfd_download_file}\NormalTok{(layout_negocios, }\DataTypeTok{out.file =} \StringTok{"layout_negocios"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Attempt 1 - File exists, skipping dl
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{layout_oferta_compra <-}\StringTok{ "ftp://ftp.bmf.com.br/MarketData/OFER_CPA_LAYOUT_portuguese.txt"}
+\KeywordTok{ghfd_download_file}\NormalTok{(layout_oferta_compra, }\DataTypeTok{out.file =} \StringTok{"layout_oferta_compra"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Attempt 1 - File exists, skipping dl
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{layout_oferta_venda <-}\StringTok{ "ftp://ftp.bmf.com.br/MarketData/OFER_VDA_LAYOUT_portuguese.txt"}
+\KeywordTok{ghfd_download_file}\NormalTok{(layout_oferta_venda, }\DataTypeTok{out.file =} \StringTok{"layout_oferta_venda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Attempt 1 - File exists, skipping dl
+\end{verbatim}
+
+\texttt{Attempt\ 1} e \texttt{TRUE} significam que o download na
+primeira tentativa foi realizado com sucesso. A mensagem
+\texttt{File\ exists,\ skipping\ dl} aparece quando o comando for
+acionado pela segunda vez e portanto o documento já foi baixado. Os
+arquivos de \emph{layout} podem ser abertos pelo bloco de notas.
+
+O comando \texttt{ghfd\_get\_ftp\_contents} acessa o ftp da Bovespa e
+retorna um vetor com todos os arquivos relacionadosm à negócios (todos
+os outros são ignorados).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"GetHFData"}\NormalTok{)}
+\NormalTok{contents_equity <-}\StringTok{ }\KeywordTok{ghfd_get_ftp_contents}\NormalTok{(}\DataTypeTok{type.market =} \StringTok{"equity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Reading ftp contents for equity (attempt = 1|10)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{contents_options <-}\StringTok{ }\KeywordTok{ghfd_get_ftp_contents}\NormalTok{(}\DataTypeTok{type.market =} \StringTok{"options"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Reading ftp contents for options (attempt = 1|10)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{contents_bmf <-}\StringTok{ }\KeywordTok{ghfd_get_ftp_contents}\NormalTok{(}\DataTypeTok{type.market =} \StringTok{"BMF"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Reading ftp contents for BMF (attempt = 1|10)
+\end{verbatim}
+
+Usando os comandos \texttt{head} e \texttt{tail} podemos ver os 6
+primeiros e 6 últimos elementos dos arquivos baixados anteriormente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(contents_equity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              files      dates
+## 1 NEG_20141103.zip 2014-11-03
+## 2 NEG_20141104.zip 2014-11-04
+## 3 NEG_20141105.zip 2014-11-05
+## 4 NEG_20141106.zip 2014-11-06
+## 5 NEG_20141107.zip 2014-11-07
+## 6 NEG_20141110.zip 2014-11-10
+##                                                             link
+## 1 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20141103.zip
+## 2 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20141104.zip
+## 3 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20141105.zip
+## 4 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20141106.zip
+## 5 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20141107.zip
+## 6 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20141110.zip
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(contents_equity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                files      dates
+## 462 NEG_20160823.zip 2016-08-23
+## 463 NEG_20160824.zip 2016-08-24
+## 464 NEG_20160825.zip 2016-08-25
+## 465 NEG_20160826.zip 2016-08-26
+## 466 NEG_20160829.zip 2016-08-29
+## 467 NEG_20160830.zip 2016-08-30
+##                                                               link
+## 462 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20160823.zip
+## 463 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20160824.zip
+## 464 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20160825.zip
+## 465 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20160826.zip
+## 466 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20160829.zip
+## 467 ftp://ftp.bmf.com.br/marketdata/Bovespa-Vista/NEG_20160830.zip
+\end{verbatim}
+
+O primeiro dia disponível para o mercado de ações (\emph{equity}) é
+2014-11-03 e o último é 2016-08-30. Os arquivos \texttt{.zip} armazenam
+dados das transações diárias e obviamente somente de segunda à
+sexta-feira.
+
+Para sabermos os \emph{tickers} (nomes dos ativos transacionados, ex.
+para o mercado de ações \texttt{PETR4}, é um \emph{ticker} para ações da
+PETROBRAS) podemos usar o comando
+\texttt{ghfd\_get\_available\_tickers\_from\_file} que obtém os
+\emph{tickers} disponíveis de um arquivo baixado do ftp da Bovespa ou
+podemos usar o comando \texttt{ghfd\_get\_available\_tickers\_from\_ftp}
+que obtém os \emph{tickers} disponíveis em um mercado e uma data
+específicos. Os dois comandos apresentam como resultado um vetor
+numérico com os tickers e outro com o número de transações de cada
+\emph{ticker}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tickers_equity <-}\StringTok{ }\KeywordTok{ghfd_get_available_tickers_from_ftp}\NormalTok{(}\DataTypeTok{my.date =} \StringTok{"2015-11-03"}\NormalTok{, }
+    \DataTypeTok{type.market =} \StringTok{"equity"}\NormalTok{, }\DataTypeTok{max.dl.tries =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Reading ftp contents for equity (attempt = 1|10) Attempt 1 - File exists, skipping dl
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(tickers_equity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   tickers n.trades                     f.name
+## 1   PETR4    52231 ftp files/NEG_20151103.zip
+## 2   ITUB4    50437 ftp files/NEG_20151103.zip
+## 3   BVMF3    47214 ftp files/NEG_20151103.zip
+## 4   VALE5    41959 ftp files/NEG_20151103.zip
+## 5   BBDC4    39403 ftp files/NEG_20151103.zip
+## 6   ITSA4    37993 ftp files/NEG_20151103.zip
+\end{verbatim}
+
+Existem 419 \emph{tickers} para o mercado de ações na data especificada.
+
+Para baixar os dados de transações de alta frequência e agregá-los para
+análise usamos o comando \texttt{ghfd\_get\_HF\_data}. Para exemplo
+usarei os três \emph{tickers} mais comercializados no mercado de ações
+em 03/11/2015, coletados no período de 30/06/2016 a 30/08/2016.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados_top3 <-}\StringTok{ }\KeywordTok{ghfd_get_HF_data}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"PETR4"}\NormalTok{, }\StringTok{"ITUB4"}\NormalTok{, }\StringTok{"BVMF3"}\NormalTok{), }\DataTypeTok{type.market =} \StringTok{"equity"}\NormalTok{, }
+    \DataTypeTok{first.date =} \KeywordTok{as.Date}\NormalTok{(}\StringTok{"2016-06-30"}\NormalTok{), }\DataTypeTok{last.date =} \KeywordTok{as.Date}\NormalTok{(}\StringTok{"2016-08-30"}\NormalTok{), }
+    \DataTypeTok{first.time =} \StringTok{"9:00:00"}\NormalTok{, }\DataTypeTok{last.time =} \StringTok{"18:00:00"}\NormalTok{, }\DataTypeTok{type.output =} \StringTok{"agg"}\NormalTok{, }
+    \DataTypeTok{agg.diff =} \StringTok{"1 hour"}\NormalTok{, }\DataTypeTok{dl.dir =} \StringTok{"ftp files"}\NormalTok{, }\DataTypeTok{max.dl.tries =} \DecValTok{10}\NormalTok{, }\DataTypeTok{clean.files =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{"dados_top3.Rda"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(dados_top3, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   InstrumentSymbol SessionDate       TradeDateTime n.trades last.price
+## 1            BVMF3  2016-06-30 2016-06-30 10:00:00     2992      17.63
+## 2            BVMF3  2016-06-30 2016-06-30 11:00:00     3642      17.67
+## 3            BVMF3  2016-06-30 2016-06-30 12:00:00     2289      17.72
+##   weighted.price  period.ret period.ret.volat sum.qtd  sum.vol n.buys
+## 1       17.53706 0.021436848     0.0003225179 1523500 26716617   1238
+## 2       17.62966 0.001700680     0.0003044433 1200900 21171287   1395
+## 3       17.68812 0.002829655     0.0003512668 1156900 20463311   1079
+##   n.sells Tradetime
+## 1    1754  10:00:00
+## 2    2247  11:00:00
+## 3    1210  12:00:00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(dados_top3, }\DataTypeTok{n =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      InstrumentSymbol SessionDate       TradeDateTime n.trades last.price
+## 1054            PETR4  2016-08-30 2016-08-30 15:00:00     4943      13.02
+## 1055            PETR4  2016-08-30 2016-08-30 16:00:00     5006      13.06
+## 1056            PETR4  2016-08-30 2016-08-30 17:00:00      489      13.15
+##      weighted.price   period.ret period.ret.volat sum.qtd   sum.vol n.buys
+## 1054       13.02425 -0.003062787     0.0003166287 4252300  55382934   1635
+## 1055       13.02341  0.003072197     0.0003043510 5535600  72092146   2506
+## 1056       13.09081  0.004583652     0.0003054307 9056300 118554268    184
+##      n.sells Tradetime
+## 1054    3308  15:00:00
+## 1055    2500  16:00:00
+## 1056     305  17:00:00
+\end{verbatim}
+
+Por fim o comando \texttt{ghfd\_read\_file} baixa os dados na sua forma
+bruta, ou seja apenas lê o arquivo \texttt{.zip} baixado do ftp da
+Bovespa. Nesta opção fica disponível o código da corretora que efetuou a
+transação.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"GetHFData"}\NormalTok{)}
+\NormalTok{path <-}\StringTok{ }\KeywordTok{path.expand}\NormalTok{(}\StringTok{"~/artigo_macroeconometria_lucca_joao/ftp files/NEG_20160830.zip"}\NormalTok{)}
+\NormalTok{dados_bruto <-}\StringTok{ }\KeywordTok{ghfd_read_file}\NormalTok{(}\DataTypeTok{out.file =} \NormalTok{path, }\DataTypeTok{my.assets =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{first.time =} \StringTok{"10:00:00"}\NormalTok{, }
+    \DataTypeTok{last.time =} \StringTok{"17:00:00"}\NormalTok{, }\DataTypeTok{type.output =} \StringTok{"raw"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  - Imported  713224 lines, 475 unique tickers
+##    -> Processing file - Found 713224 lines, 475 unique tickers
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(dados_bruto)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 10
+##   SessionDate InstrumentSymbol TradePrice TradedQuantity    Tradetime
+##        <date>            <chr>      <dbl>          <dbl>        <chr>
+## 1  2016-08-30           AALC34      32.81            800 16:10:39.669
+## 2  2016-08-30           AAPL34      34.50           3600 16:05:22.618
+## 3  2016-08-30           AAPL34      34.15           8700 16:10:39.669
+## 4  2016-08-30           ABCB10      14.21            500 10:00:57.694
+## 5  2016-08-30           ABCB10      14.00           1000 15:01:20.909
+## 6  2016-08-30           ABCB10      14.00            400 15:15:49.496
+## # ... with 5 more variables: CrossTradeIndicator <int>, BuyMember <dbl>,
+## #   SellMember <dbl>, TradeDateTime <time>, TradeSign <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(dados_bruto)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 10
+##   SessionDate InstrumentSymbol TradePrice TradedQuantity    Tradetime
+##        <date>            <chr>      <dbl>          <dbl>        <chr>
+## 1  2016-08-30           XTED11      22.56             30 16:42:14.335
+## 2  2016-08-30           XTED11      22.52             85 16:42:14.335
+## 3  2016-08-30           XTED11      22.57            500 16:42:14.335
+## 4  2016-08-30           XTED11      22.52              3 16:42:14.335
+## 5  2016-08-30           XTED11      22.55              6 16:42:14.335
+## 6  2016-08-30           XTED11      22.52            172 16:44:59.661
+## # ... with 5 more variables: CrossTradeIndicator <int>, BuyMember <dbl>,
+## #   SellMember <dbl>, TradeDateTime <time>, TradeSign <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(dados_bruto[, }\DecValTok{5}\NormalTok{:}\DecValTok{8}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##      Tradetime CrossTradeIndicator BuyMember SellMember
+##          <chr>               <int>     <dbl>      <dbl>
+## 1 16:10:39.669                   0        40         40
+## 2 16:05:22.618                   1       238        238
+## 3 16:10:39.669                   0        40         40
+## 4 10:00:57.694                   0        58        174
+## 5 15:01:20.909                   0       735        114
+## 6 15:15:49.496                   0        15        114
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(dados_bruto[, }\DecValTok{9}\NormalTok{:}\DecValTok{10}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##         TradeDateTime TradeSign
+##                <time>     <dbl>
+## 1 2016-08-30 16:42:14        -1
+## 2 2016-08-30 16:42:14        -1
+## 3 2016-08-30 16:42:14        -1
+## 4 2016-08-30 16:42:14        -1
+## 5 2016-08-30 16:42:14        -1
+## 6 2016-08-30 16:44:59        -1
+\end{verbatim}
+
+\section{\texorpdfstring{Coletando dados usando
+\texttt{quantmod}}{Coletando dados usando quantmod}}\label{coletando-dados-usando-quantmod}
+
+Dados do mercado financeiro podem ser baixados por um outro pacote
+chamado \texttt{quantmod}. Este pacote baixa os dados de fontes como o
+Yahoo Finance, Goole Finace e diversas outras fontes (Tsay 2012). A
+forma que este pacote trabalha á diferente do pacote \texttt{GetHFData}.
+Com o \texttt{quantmod} não é necessário designar objetos, pois este
+pacote trabalha com objetos ocultos. Segue uma demonstração:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(quantmod)}
+\KeywordTok{getSymbols}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"PETR4"}\NormalTok{, }\StringTok{"ITUB4"}\NormalTok{, }\StringTok{"BVMF3"}\NormalTok{), }\DataTypeTok{src =} \StringTok{"google"}\NormalTok{, }\DataTypeTok{env =} \KeywordTok{globalenv}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "PETR4" "ITUB4" "BVMF3"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(PETR4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            PETR4.Open PETR4.High PETR4.Low PETR4.Close PETR4.Volume
+## 2007-01-02      25.00      25.22     24.88       25.22     10221200
+## 2007-01-03      25.08      25.20     24.00       24.35     19822400
+## 2007-01-04      24.25      24.38     23.70       23.82     20910800
+## 2007-01-05      23.60      24.00     22.55       23.10     24798200
+## 2007-01-08      23.25      23.57     22.90       23.30     19406000
+## 2007-01-09      22.98      23.20     22.30       22.76     25847800
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(BVMF3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      BVMF3.Open BVMF3.High BVMF3.Low BVMF3.Close BVMF3.Volume
+## <NA>      17.80      17.84     17.44       17.49     10652500
+## <NA>      17.49      17.62     16.64       17.59     15043000
+## <NA>      17.66      17.97     17.60       17.70     12392900
+## <NA>      17.69      17.86     17.61       17.80      7893700
+## <NA>      17.99      17.99     17.52       17.83     26841900
+## <NA>      17.83      18.28     17.75       18.23     10544700
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(ITUB4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2424    5
+\end{verbatim}
+
+Podemos perceber que os dados fornecidos pelo Google Finance são diários
+e iniciam em 2007, porém alguns intervalos de datas não estão
+disponíveis para dados com fonte no Google Finance (provavelmente por
+conflito de feriados) e os dados para ativos financeiros brasileiros até
+a data de escrita deste documento só foram encontrados no Google
+Finance. Realizei o comando \texttt{tail} para os demais ativos e estes
+também não apresentaram as datas mais recentes. Esta base de dados
+também não fornece o preço ajustado (para ativos financeiros
+brasileiros) e os dados brutos com discriminação por corretora como na
+seção anterior. Além disso ao utilizar o pacote \texttt{bizdays} que
+estabelece os dias úteis para o mercado financeiro brasileiro com base
+no caendário da AMBIMA ainda existe algum conflito entre os dias úteis
+apresentados pelo Google Finance e pelo \texttt{bizdays}. Para mais
+detalhes sobre o pacote \texttt{quantmod} veja Ryan (2016).
+
+\section{Organizando a base de dados}\label{organizando-a-base-de-dados}
+
+A partir de agora urilizarei os dados obtidos usando o pacote
+\texttt{GetHFData} devido ao problema com o pacote
+\texttt{quantmod}relatado anteriormente. a base de dados
+\texttt{dados\_top3} contém as informações sobre os trê ativos
+\texttt{PETR4,\ ITUB4,\ BVMF3} no mesmo banco de dados. Portanto temos
+que separar este banco de dados em três outros arquivos cada um com
+informações a respeito de apenas um tipo de ação.
+
+Para isso podemos utilizar a função \texttt{filter()} do pacote
+\texttt{dplyr}. O banco de dados \texttt{dados\_top3} possui dimensão
+(1056, 13).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\NormalTok{PETR4_data <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top3, InstrumentSymbol ==}\StringTok{ "PETR4"}\NormalTok{)}
+\NormalTok{BVMF3_data <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top3, InstrumentSymbol ==}\StringTok{ "BVMF3"}\NormalTok{)}
+\NormalTok{ITUB4_data <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top3, InstrumentSymbol ==}\StringTok{ "ITUB4"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Então ele será dividido em três bancos de dados de mesma dimensão (352,
+13).
+
+\subsection{Plotando os retornos dos
+ativos}\label{plotando-os-retornos-dos-ativos}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(gridExtra)}
+\NormalTok{plot_PETR4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(PETR4_data, }\KeywordTok{aes}\NormalTok{(TradeDateTime, period.ret)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() +}\StringTok{ }\KeywordTok{scale_x_datetime}\NormalTok{(}\DataTypeTok{date_labels =} \StringTok{"%Y-%m-%d %H:%M:%S"}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) +}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"PETR4"}\NormalTok{) +}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{7}\NormalTok{, }
+    \DataTypeTok{vjust =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{hjust =} \FloatTok{0.9}\NormalTok{))}
+\NormalTok{plot_BVMF3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(BVMF3_data, }\KeywordTok{aes}\NormalTok{(TradeDateTime, period.ret)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() +}\StringTok{ }\KeywordTok{scale_x_datetime}\NormalTok{(}\DataTypeTok{date_labels =} \StringTok{"%Y-%m-%d %H:%M:%S"}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) +}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"BVMF3"}\NormalTok{) +}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{7}\NormalTok{, }
+    \DataTypeTok{vjust =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{hjust =} \FloatTok{0.9}\NormalTok{))}
+\NormalTok{plot_ITUB4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(ITUB4_data, }\KeywordTok{aes}\NormalTok{(TradeDateTime, period.ret)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() +}\StringTok{ }\KeywordTok{scale_x_datetime}\NormalTok{(}\DataTypeTok{date_labels =} \StringTok{"%Y-%m-%d %H:%M:%S"}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) +}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"ITUB4"}\NormalTok{) +}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{7}\NormalTok{, }
+    \DataTypeTok{vjust =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{hjust =} \FloatTok{0.9}\NormalTok{))}
+\KeywordTok{grid.arrange}\NormalTok{(plot_PETR4, plot_BVMF3, plot_ITUB4, }\DataTypeTok{name =} \StringTok{"Retornos das ações"}\NormalTok{, }
+    \DataTypeTok{nrow =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[h]
+
+{\centering \includegraphics{coletando_dados_files/figure-latex/plots-1} 
+
+}
+
+\caption{Retornos doa ativos}\label{fig:plots}
+\end{figure}
+
+\section*{Referências}\label{referencias}
+\addcontentsline{toc}{section}{Referências}
+
+\setlength{\parindent}{0in}
+
+\hypertarget{refs}{}
+\hypertarget{ref-perlinux5fgethfdata:ux5f2016}{}
+Perlin, Marcelo. 2016. \emph{GetHFData: Download and Aggregate High
+Frequency Trading Data from Bovespa}.
+\url{https://CRAN.R-project.org/package=GetHFData}.
+
+\hypertarget{ref-perlinux5fgethfdata:ux5f2016-1}{}
+Perlin, Marcelo, and Henrique Ramos. 2016. ``GetHFData: A R Package for
+Downloading and Aggregating High Frequency Trading Data from Bovespa.''
+SSRN Scholarly Paper ID 2824058. Rochester, NY: Social Science Research
+Network. \url{https://papers.ssrn.com/abstract=2824058}.
+
+\hypertarget{ref-ryanux5fquantmod:ux5f2016}{}
+Ryan, Jeffrey A. 2016. \emph{Quantmod: Quantitative Financial Modelling
+Framework}. \url{https://CRAN.R-project.org/package=quantmod}.
+
+\hypertarget{ref-tsayux5fintroductionux5f2012}{}
+Tsay, Ruey S. 2012. \emph{An Introduction to Analysis of Financial Data
+with R}. 1 edition. Hoboken, N.J: Wiley.
+
+\end{document}
