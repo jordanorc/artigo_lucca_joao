@@ -142,7 +142,18 @@ basicStats(PETR4_data$period.ret)
 basicStats(BVMF3_data$period.ret)
 basicStats(ITUB4_data$period.ret)
 ```
-Ao realizar as estatísticas básicas, percebi um problema. O cálculo do retorno feito pelo pacote `GetHFData` é o cálculo de retorno simples, o que torna a soma dos retornos inadequada. Para que a soma dos retornos seja correta, o cálculo do retorno deveria ser em logarítmo, o que possibilita a soma dos retornos. Portanto, para trabalhamors com os retornos dos ativos, devemos calcular o logarítmo do retorno. Conforme @tsay_introduction_2012 será utilizado o retorno ponderado pois leva em conta o fracionamento das ações, se ocorridos no período estudado.
+Ao realizar as estatísticas básicas, percebi um problema. O cálculo do retorno feito pelo pacote `GetHFData` é o cálculo de retorno simples, o que torna a soma dos retornos inadequada. Para que a soma dos retornos seja correta, o cálculo do retorno deveria ser em logarítmo, o que possibilita a soma dos retornos. Portanto, para trabalhamors com os retornos dos ativos, devemos calcular o logarítmo do retorno. Conforme @tsay_introduction_2012 será utilizado o retorno ponderado pois leva em conta o fracionamento das ações, se ocorridos no período estudado (ainda não foi feito, os testes posteriores foram feitos com o retorno apresentado pelo pacote).
+
+## Teste de normalidade
+
+Para testar a normalidade usarei o teste proporto por @jarque_test_1987.
+
+```{r normalidade}
+normalTest(PETR4_data$period.ret, method = 'jb')
+normalTest(BVMF3_data$period.ret, method = 'jb')
+normalTest(ITUB4_data$period.ret, method = 'jb')
+```
+Para os três ativos, o teste de normalidade é rejeitado, pois os valores-p são menores que o nível de significância, inclusive de 1\%. Portanto, não podemos afiramr que a série possui distribuição normal. Porém, o que realmente interessa é se o termo de erro da sequência é um ruído branco. Para descobrirmos isso, é preciso identificar o tipo  e a ordem da série e depois realizar testes sobre o resíduo da equação de diferenças estocástica estimada.
 
 # Referências {-}
 \setlength{\parindent}{0in}

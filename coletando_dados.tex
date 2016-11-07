@@ -707,7 +707,85 @@ retornos seja correta, o cálculo do retorno deveria ser em logarítmo, o
 que possibilita a soma dos retornos. Portanto, para trabalhamors com os
 retornos dos ativos, devemos calcular o logarítmo do retorno. Conforme
 Tsay (2012) será utilizado o retorno ponderado pois leva em conta o
-fracionamento das ações, se ocorridos no período estudado.
+fracionamento das ações, se ocorridos no período estudado (ainda não foi
+feito, os testes posteriores foram feitos com o retorno apresentado pelo
+pacote).
+
+\subsection{Teste de normalidade}\label{teste-de-normalidade}
+
+Para testar a normalidade usarei o teste proporto por Jarque and Bera
+(1987).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{normalTest}\NormalTok{(PETR4_data$period.ret, }\DataTypeTok{method =} \StringTok{"jb"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 29.1554
+##   P VALUE:
+##     Asymptotic p Value: 4.666e-07 
+## 
+## Description:
+##  Mon Nov 07 17:39:55 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{normalTest}\NormalTok{(BVMF3_data$period.ret, }\DataTypeTok{method =} \StringTok{"jb"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 116.6585
+##   P VALUE:
+##     Asymptotic p Value: < 2.2e-16 
+## 
+## Description:
+##  Mon Nov 07 17:39:56 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{normalTest}\NormalTok{(ITUB4_data$period.ret, }\DataTypeTok{method =} \StringTok{"jb"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 14.6224
+##   P VALUE:
+##     Asymptotic p Value: 0.000668 
+## 
+## Description:
+##  Mon Nov 07 17:39:56 2016 by user: Lucca
+\end{verbatim}
+
+Para os três ativos, o teste de normalidade é rejeitado, pois os
+valores-p são menores que o nível de significância, inclusive de 1\%.
+Portanto, não podemos afiramr que a série possui distribuição normal.
+Porém, o que realmente interessa é se o termo de erro da sequência é um
+ruído branco. Para descobrirmos isso, é preciso identificar o tipo e a
+ordem da série e depois realizar testes sobre o resíduo da equação de
+diferenças estocástica estimada.
 
 \section*{Referências}\label{referencias}
 \addcontentsline{toc}{section}{Referências}
@@ -715,6 +793,12 @@ fracionamento das ações, se ocorridos no período estudado.
 \setlength{\parindent}{0in}
 
 \hypertarget{refs}{}
+\hypertarget{ref-jarqueux5ftestux5f1987}{}
+Jarque, Carlos M., and Anil K. Bera. 1987. ``A Test for Normality of
+Observations and Regression Residuals.'' \emph{International Statistical
+Review / Revue Internationale de Statistique} 55 (2): 163--72.
+doi:\href{https://doi.org/10.2307/1403192}{10.2307/1403192}.
+
 \hypertarget{ref-perlinux5fgethfdata:ux5f2016}{}
 Perlin, Marcelo. 2016. \emph{GetHFData: Download and Aggregate High
 Frequency Trading Data from Bovespa}.
