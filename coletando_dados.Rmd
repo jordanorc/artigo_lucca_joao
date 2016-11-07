@@ -106,7 +106,7 @@ Para mais detalhes sobre o pacote `quantmod` veja @ryan_quantmod:_2016.
 
 # Organizando a base de dados
 
-A partir de agora urilizarei os dados obtidos usando o pacote `GetHFData` devido ao problema com o pacote `quantmod`relatado anteriormente. a base de dados `dados_top3` contém as informações sobre os trê ativos `PETR4, ITUB4, BVMF3` no mesmo banco de dados.
+A partir de agora urilizarei os dados obtidos usando o pacote `GetHFData` devido ao problema com o pacote `quantmod` relatado anteriormente. a base de dados `dados_top3` contém as informações sobre os trê ativos `PETR4, ITUB4, BVMF3` no mesmo banco de dados.
 Portanto temos que separar este banco de dados em três outros arquivos cada um com informações a respeito de apenas um tipo de ação.
 
 Para isso podemos utilizar a função `filter()` do pacote `dplyr`. O banco de dados `dados_top3` possui dimensão (`r dim(dados_top3)`). 
@@ -131,6 +131,18 @@ grid.arrange(plot_PETR4, plot_BVMF3, plot_ITUB4, name = 'Retornos das ações', 
 ```
 Visualente podemos perceber que os retornos oscilam em torno de zero e que esporadicamente ocorrems valores extremos.
 
+# Propriedades da distribuição dos retornos
+
+Para conhecermos as características da distribuição dos dados usaremos o pacote `fBasics`.
+Inicialmente são apresentadas algumas estatísticas básicas.
+
+```{r}
+library(fBasics)
+basicStats(PETR4_data$period.ret)
+basicStats(BVMF3_data$period.ret)
+basicStats(ITUB4_data$period.ret)
+```
+Ao realizar as estatísticas básicas, percebi um problema. O cálculo do retorno feito pelo pacote `GetHFData` é o cálculo de retorno simples, o que torna a soma dos retornos inadequada. Para que a soma dos retornos seja correta, o cálculo do retorno deveria ser em logarítmo, o que possibilita a soma dos retornos. Portanto, para trabalhamors com os retornos dos ativos, devemos calcular o logarítmo do retorno. Conforme @tsay_introduction_2012 será utilizado o retorno ponderado pois leva em conta o fracionamento das ações, se ocorridos no período estudado.
 
 # Referências {-}
 \setlength{\parindent}{0in}

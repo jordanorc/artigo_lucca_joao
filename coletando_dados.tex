@@ -555,12 +555,12 @@ detalhes sobre o pacote \texttt{quantmod} veja Ryan (2016).
 \section{Organizando a base de dados}\label{organizando-a-base-de-dados}
 
 A partir de agora urilizarei os dados obtidos usando o pacote
-\texttt{GetHFData} devido ao problema com o pacote
-\texttt{quantmod}relatado anteriormente. a base de dados
-\texttt{dados\_top3} contém as informações sobre os trê ativos
-\texttt{PETR4,\ ITUB4,\ BVMF3} no mesmo banco de dados. Portanto temos
-que separar este banco de dados em três outros arquivos cada um com
-informações a respeito de apenas um tipo de ação.
+\texttt{GetHFData} devido ao problema com o pacote \texttt{quantmod}
+relatado anteriormente. a base de dados \texttt{dados\_top3} contém as
+informações sobre os trê ativos \texttt{PETR4,\ ITUB4,\ BVMF3} no mesmo
+banco de dados. Portanto temos que separar este banco de dados em três
+outros arquivos cada um com informações a respeito de apenas um tipo de
+ação.
 
 Para isso podemos utilizar a função \texttt{filter()} do pacote
 \texttt{dplyr}. O banco de dados \texttt{dados\_top3} possui dimensão
@@ -610,6 +610,104 @@ ativos}\label{plotando-os-retornos-dos-ativos}
 
 \caption{Retornos doa ativos}\label{fig:plots}
 \end{figure}
+
+Visualente podemos perceber que os retornos oscilam em torno de zero e
+que esporadicamente ocorrems valores extremos.
+
+\section{Propriedades da distribuição dos
+retornos}\label{propriedades-da-distribuicao-dos-retornos}
+
+Para conhecermos as características da distribuição dos dados usaremos o
+pacote \texttt{fBasics}. Inicialmente são apresentadas algumas
+estatísticas básicas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(fBasics)}
+\KeywordTok{basicStats}\NormalTok{(PETR4_data$period.ret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             X..PETR4_data.period.ret
+## nobs                      352.000000
+## NAs                         0.000000
+## Minimum                    -0.026943
+## Maximum                     0.028986
+## 1. Quartile                -0.003815
+## 3. Quartile                 0.004444
+## Mean                        0.000435
+## Median                      0.000000
+## Sum                         0.153196
+## SE Mean                     0.000388
+## LCL Mean                   -0.000329
+## UCL Mean                    0.001199
+## Variance                    0.000053
+## Stdev                       0.007287
+## Skewness                    0.017503
+## Kurtosis                    1.384462
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{basicStats}\NormalTok{(BVMF3_data$period.ret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             X..BVMF3_data.period.ret
+## nobs                      352.000000
+## NAs                         0.000000
+## Minimum                    -0.030617
+## Maximum                     0.025946
+## 1. Quartile                -0.003256
+## 3. Quartile                 0.003008
+## Mean                       -0.000101
+## Median                      0.000000
+## Sum                        -0.035675
+## SE Mean                     0.000337
+## LCL Mean                   -0.000764
+## UCL Mean                    0.000561
+## Variance                    0.000040
+## Stdev                       0.006322
+## Skewness                   -0.058064
+## Kurtosis                    2.784860
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{basicStats}\NormalTok{(ITUB4_data$period.ret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             X..ITUB4_data.period.ret
+## nobs                      352.000000
+## NAs                         0.000000
+## Minimum                    -0.017962
+## Maximum                     0.015730
+## 1. Quartile                -0.002247
+## 3. Quartile                 0.003588
+## Mean                        0.000605
+## Median                      0.000324
+## Sum                         0.212899
+## SE Mean                     0.000269
+## LCL Mean                    0.000076
+## UCL Mean                    0.001133
+## Variance                    0.000025
+## Stdev                       0.005040
+## Skewness                   -0.064426
+## Kurtosis                    0.967430
+\end{verbatim}
+
+Ao realizar as estatísticas básicas, percebi um problema. O cálculo do
+retorno feito pelo pacote \texttt{GetHFData} é o cálculo de retorno
+simples, o que torna a soma dos retornos inadequada. Para que a soma dos
+retornos seja correta, o cálculo do retorno deveria ser em logarítmo, o
+que possibilita a soma dos retornos. Portanto, para trabalhamors com os
+retornos dos ativos, devemos calcular o logarítmo do retorno. Conforme
+Tsay (2012) será utilizado o retorno ponderado pois leva em conta o
+fracionamento das ações, se ocorridos no período estudado.
 
 \section*{Referências}\label{referencias}
 \addcontentsline{toc}{section}{Referências}
