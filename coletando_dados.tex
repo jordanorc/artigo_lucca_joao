@@ -518,13 +518,13 @@ pacote trabalha com objetos ocultos. Segue uma demonstração:
 \end{Shaded}
 
 \begin{verbatim}
-##      BVMF3.Open BVMF3.High BVMF3.Low BVMF3.Close BVMF3.Volume
-## <NA>      17.80      17.84     17.44       17.49     10652500
-## <NA>      17.49      17.62     16.64       17.59     15043000
-## <NA>      17.66      17.97     17.60       17.70     12392900
-## <NA>      17.69      17.86     17.61       17.80      7893700
-## <NA>      17.99      17.99     17.52       17.83     26841900
-## <NA>      17.83      18.28     17.75       18.23     10544700
+##            BVMF3.Open BVMF3.High BVMF3.Low BVMF3.Close BVMF3.Volume
+## <NA>            18.30      19.01     18.26       18.80     11857600
+## 2016-11-01      18.80      18.96     18.01       18.25     16018300
+## 2016-11-03      18.20      18.33     17.70       17.72      9751600
+## 2016-11-04      17.69      18.15     17.52       17.59      8132300
+## 2016-11-07      17.94      18.60     17.85       18.56      9484100
+## 2016-11-08      18.31      18.69        NA       18.40      6010800
 \end{verbatim}
 
 \begin{Shaded}
@@ -534,7 +534,7 @@ pacote trabalha com objetos ocultos. Segue uma demonstração:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 2424    5
+## [1] 2437    5
 \end{verbatim}
 
 Podemos perceber que os dados fornecidos pelo Google Finance são diários
@@ -786,6 +786,176 @@ Porém, o que realmente interessa é se o termo de erro da sequência é um
 ruído branco. Para descobrirmos isso, é preciso identificar o tipo e a
 ordem da série e depois realizar testes sobre o resíduo da equação de
 diferenças estocástica estimada.
+
+\section{Visualização de dados
+financeiros}\label{visualizacao-de-dados-financeiros}
+
+Para sabermos como se comportam os dados de interesse podemos plotar o
+histograma dos dados e analizar o formato obtido.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{histo_PETR4 <-}\StringTok{ }\KeywordTok{hist}\NormalTok{(PETR4_data$period.ret, }\DataTypeTok{main =} \StringTok{"Retorno PETR4"}\NormalTok{, }\DataTypeTok{nclass =} \DecValTok{30}\NormalTok{)}
+\NormalTok{histo_BVMF3 <-}\StringTok{ }\KeywordTok{hist}\NormalTok{(BVMF3_data$period.ret, }\DataTypeTok{main =} \StringTok{"Retorno BVMF3"}\NormalTok{, }\DataTypeTok{nclass =} \DecValTok{30}\NormalTok{)}
+\NormalTok{histo_ITUB4 <-}\StringTok{ }\KeywordTok{hist}\NormalTok{(ITUB4_data$period.ret, }\DataTypeTok{main =} \StringTok{"Retorno ITUB4"}\NormalTok{, }\DataTypeTok{nclass =} \DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[h]
+
+{\centering \includegraphics{coletando_dados_files/figure-latex/histograma-1} 
+
+}
+
+\caption{Histogramas dos ativos}\label{fig:histograma}
+\end{figure}
+
+Podemos ver que o formato dos histogramas se assemelham à uma
+distribuição normal, porém, como já apresentado pelo teste de
+normalidade, os dados não possuem distribuição normal. Outra forma de
+visualizar os dados é estimar sua densidade empírica e comparar com a
+densidade de uma distribuição normal. Isto é feito por meio de um método
+de suavização não paramétrico (Tsay 2012). Esta densidade empírica pode
+ser vista como uma versão refinada do histograma.
+
+A densidade normal para cada ativo foi construída usando suas
+respectivas média e desvio padrão. As Figuras 2 e 3 fornecem uma
+referência visual sobre a hipótese de normalidade dos retornos. AS três
+densidades estimadas possuem um pico maior e caudas mais longas que a
+densidade normal. Conforme Tsay (2012) isto é normal para dados
+financeiros e, em geral, a diferença entre a linha pontilhada e a linha
+sólida não é normalmente distribuída. O que é consistente com o teste de
+normalidade realizado anteriormente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\CommentTok{# para estimar as densidades dos retornos}
+\NormalTok{dens_PETR4 <-}\StringTok{ }\KeywordTok{density}\NormalTok{(PETR4_data$period.ret)}
+\NormalTok{dens_BVMF3 <-}\StringTok{ }\KeywordTok{density}\NormalTok{(BVMF3_data$period.ret)}
+\NormalTok{dens_ITUB4 <-}\StringTok{ }\KeywordTok{density}\NormalTok{(ITUB4_data$period.ret)}
+\KeywordTok{range}\NormalTok{(PETR4_data$period.ret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.02694301  0.02898551
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{range}\NormalTok{(BVMF3_data$period.ret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.03061728  0.02594595
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{range}\NormalTok{(ITUB4_data$period.ret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.01796231  0.01573034
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{seq_x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(-}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)  }\CommentTok{# Cria uma sequência com incremento de 0.001}
+\CommentTok{# Criando uma densidade normal}
+\NormalTok{norm_PETR4 <-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(seq_x, }\KeywordTok{mean}\NormalTok{(PETR4_data$period.ret), }\KeywordTok{stdev}\NormalTok{(PETR4_data$period.ret))}
+\NormalTok{norm_BVMF3 <-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(seq_x, }\KeywordTok{mean}\NormalTok{(BVMF3_data$period.ret), }\KeywordTok{stdev}\NormalTok{(BVMF3_data$period.ret))}
+\NormalTok{norm_ITUB4 <-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(seq_x, }\KeywordTok{mean}\NormalTok{(ITUB4_data$period.ret), }\KeywordTok{stdev}\NormalTok{(ITUB4_data$period.ret))}
+\KeywordTok{plot}\NormalTok{(dens_PETR4$x, dens_PETR4$y, }\DataTypeTok{xlab =} \StringTok{"retorno PETR4"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"densidade"}\NormalTok{, }
+    \DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(seq_x, norm_PETR4, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(dens_BVMF3$x, dens_BVMF3$y, }\DataTypeTok{xlab =} \StringTok{"retorno BVMF3"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"densidade"}\NormalTok{, }
+    \DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(seq_x, norm_BVMF3, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(dens_ITUB4$x, dens_ITUB4$y, }\DataTypeTok{xlab =} \StringTok{"retorno ITUB4"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"densidade"}\NormalTok{, }
+    \DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(seq_x, norm_ITUB4, }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[h]
+
+{\centering \includegraphics{coletando_dados_files/figure-latex/densidade-1} 
+
+}
+
+\caption{Densidade empírica dos ativos (linha sólida) e densidade normal (linha pontilhada)}\label{fig:densidade}
+\end{figure}
+
+Outra forma interessante de visualizar os dados é o gráfico de barras,
+porém é necessário os preços de abertura e fechamento e o preço máximo e
+preço mínimo, o que não está disponível na amostra utilizada.
+Entretanto, podemos apresentar o grafico de média móvel dos preços. Par
+aisso énecessário baixar o script \texttt{ma.R} que realiza a suavização
+em
+\url{http://faculty.chicagobooth.edu/ruey.tsay/teaching/introTS/ma.R}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{source}\NormalTok{(}\StringTok{"ma.R"}\NormalTok{)  }\CommentTok{# compila o script}
+\NormalTok{preco_PETR4 <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(PETR4_data$weighted.price)}
+\NormalTok{preco_BVMF3 <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(BVMF3_data$weighted.price)}
+\NormalTok{preco_ITUB4 <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(ITUB4_data$weighted.price)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{ma_PETR4 <-}\StringTok{ }\KeywordTok{ma}\NormalTok{(preco_PETR4, }\DecValTok{21}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{coletando_dados_files/figure-latex/media\%20movel-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ma_BVMF3 <-}\StringTok{ }\KeywordTok{ma}\NormalTok{(preco_BVMF3, }\DecValTok{21}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{coletando_dados_files/figure-latex/media\%20movel-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ma_ITUB4 <-}\StringTok{ }\KeywordTok{ma}\NormalTok{(preco_ITUB4, }\DecValTok{21}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{coletando_dados_files/figure-latex/media\%20movel-3.pdf}
+
+FOram usadas 21 defasagens. O número de defasagens foi escolhido
+arbitrariamente e remete à uma média de três dias anteriores, já que a
+frequência de dados é por hora e o pregão fica aberto entre 10:00 hrs e
+17:55 hrs.
+
+Para encontrar a matriz de correlação do retorno dos ativos
+primeiramente contruiremos uma matriz com os três retornos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{matriz_retornos <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(PETR4_data$period.ret, BVMF3_data$period.ret, }
+    \NormalTok{ITUB4_data$period.ret)}
+\KeywordTok{cor}\NormalTok{(matriz_retornos)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       PETR4_data.period.ret BVMF3_data.period.ret
+## PETR4_data.period.ret             1.0000000             0.3191739
+## BVMF3_data.period.ret             0.3191739             1.0000000
+## ITUB4_data.period.ret             0.4650334             0.3071115
+##                       ITUB4_data.period.ret
+## PETR4_data.period.ret             0.4650334
+## BVMF3_data.period.ret             0.3071115
+## ITUB4_data.period.ret             1.0000000
+\end{verbatim}
+
+\pagebreak
 
 \section*{Referências}\label{referencias}
 \addcontentsline{toc}{section}{Referências}

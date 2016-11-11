@@ -1,0 +1,29 @@
+---
+title: "Baixando dados diários"
+author: 
+- Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho
+header-includes:
+   - \setlength\parindent{24pt}
+   - \usepackage[english, brazil]{babel}
+date: \today
+output: 
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+bibliography: bib_artigo_macroeconometria.bib
+---
+
+```{r setup, include=TRUE, tidy = TRUE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE,
+                warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
+```
+
+# Ranking de negociações
+
+```{r tickers}
+library(GetHFData)
+tickers_equity <- ghfd_get_available_tickers_from_ftp(my.date = "2016-10-30",
+type.market = "equity", max.dl.tries = 10)
+head(tickers_equity, n = 10)

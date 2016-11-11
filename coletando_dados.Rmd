@@ -155,6 +155,66 @@ normalTest(ITUB4_data$period.ret, method = 'jb')
 ```
 Para os três ativos, o teste de normalidade é rejeitado, pois os valores-p são menores que o nível de significância, inclusive de 1\%. Portanto, não podemos afiramr que a série possui distribuição normal. Porém, o que realmente interessa é se o termo de erro da sequência é um ruído branco. Para descobrirmos isso, é preciso identificar o tipo  e a ordem da série e depois realizar testes sobre o resíduo da equação de diferenças estocástica estimada.
 
+# Visualização de dados financeiros
+
+Para sabermos como se comportam os dados de interesse podemos plotar o histograma dos dados e analizar o formato obtido.
+
+```{r histograma, fig.align = 'center', fig.height=3, fig.width=8, fig.pos = 'h', fig.cap = 'Histogramas dos ativos'}
+par(mfrow = c(1,3))
+histo_PETR4 <- hist(PETR4_data$period.ret, main = "Retorno PETR4", nclass = 30)
+histo_BVMF3 <- hist(BVMF3_data$period.ret, main = "Retorno BVMF3", nclass = 30)
+histo_ITUB4 <- hist(ITUB4_data$period.ret, main = "Retorno ITUB4", nclass = 30)
+```
+Podemos ver que o formato dos histogramas se assemelham à uma distribuição normal, porém, como já apresentado pelo teste de normalidade, os dados não possuem distribuição normal.
+Outra forma de visualizar os dados é estimar sua densidade empírica e comparar com a densidade de uma distribuição normal. Isto é feito por meio de um método de suavização não paramétrico [@tsay_introduction_2012]. Esta densidade empírica pode ser vista como uma versão refinada do histograma.
+
+A densidade normal para cada ativo foi construída usando suas respectivas   média e desvio padrão. As Figuras 2 e 3  fornecem uma referência visual sobre a hipótese de normalidade dos retornos. AS três densidades estimadas possuem um pico maior e caudas mais longas que a densidade normal. Conforme @tsay_introduction_2012 isto é normal para dados financeiros e, em geral, a diferença entre a linha pontilhada e a linha sólida não é normalmente distribuída. O que é consistente com o teste de normalidade realizado anteriormente.
+
+```{r densidade, fig.align = 'center', fig.height=3, fig.width=8, fig.pos = 'h', fig.cap = 'Densidade empírica dos ativos (linha sólida) e densidade normal (linha pontilhada)'}
+par(mfrow = c(1,3))
+#para estimar as densidades dos retornos
+dens_PETR4 <- density(PETR4_data$period.ret)
+dens_BVMF3 <- density(BVMF3_data$period.ret)
+dens_ITUB4 <- density(ITUB4_data$period.ret)
+range(PETR4_data$period.ret)
+range(BVMF3_data$period.ret)
+range(ITUB4_data$period.ret)
+seq_x <- seq(-.1,.1,0.001)# Cria uma sequência com incremento de 0.001
+         # Criando uma densidade normal
+norm_PETR4 <- dnorm(seq_x, mean(PETR4_data$period.ret), stdev(PETR4_data$period.ret))
+norm_BVMF3 <- dnorm(seq_x, mean(BVMF3_data$period.ret), stdev(BVMF3_data$period.ret))
+norm_ITUB4 <- dnorm(seq_x, mean(ITUB4_data$period.ret), stdev(ITUB4_data$period.ret))
+plot(dens_PETR4$x,dens_PETR4$y,xlab = 'retorno PETR4',ylab = 'densidade',type = 'l')
+lines(seq_x, norm_PETR4, lty = 2)
+plot(dens_BVMF3$x,dens_BVMF3$y,xlab = 'retorno BVMF3',ylab = 'densidade',type = 'l')
+lines(seq_x, norm_BVMF3, lty = 2)
+plot(dens_ITUB4$x,dens_ITUB4$y,xlab = 'retorno ITUB4',ylab = 'densidade',type = 'l')
+lines(seq_x, norm_ITUB4, lty = 2)
+```
+Outra forma interessante de visualizar os dados é o gráfico de barras, porém  é necessário os preços de abertura e fechamento e o preço máximo e preço mínimo, o que não está disponível na amostra utilizada. Entretanto, podemos apresentar o grafico de média móvel dos preços. Par aisso énecessário baixar o script `ma.R` que realiza a suavização em http://faculty.chicagobooth.edu/ruey.tsay/teaching/introTS/ma.R.
+
+```{r media movel}
+source('ma.R') # compila o script
+preco_PETR4 <- as.numeric(PETR4_data$weighted.price)
+preco_BVMF3 <- as.numeric(BVMF3_data$weighted.price)
+preco_ITUB4 <- as.numeric(ITUB4_data$weighted.price)
+par(mfrow = c(1,3))
+ma_PETR4 <- ma(preco_PETR4, 21)
+ma_BVMF3 <- ma(preco_BVMF3, 21)
+ma_ITUB4 <- ma(preco_ITUB4, 21)
+```
+
+FOram usadas 21 defasagens. O número de defasagens foi escolhido arbitrariamente e remete à uma média de três dias anteriores, já que a frequência de dados é por hora e o pregão fica aberto entre 10:00 hrs e 17:55 hrs.
+
+Para encontrar a matriz de correlação do retorno dos ativos primeiramente contruiremos uma matriz com os três retornos.
+
+```{r matriz}
+matriz_retornos <- data.frame(PETR4_data$period.ret, BVMF3_data$period.ret, ITUB4_data$period.ret)
+cor(matriz_retornos)
+```
+
+\pagebreak
+
 # Referências {-}
 \setlength{\parindent}{0in}
 
