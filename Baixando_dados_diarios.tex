@@ -175,6 +175,64 @@
 ## 10   VALE5    16141 ftp files/NEG_20160930.zip
 \end{verbatim}
 
+Criando um vetor com as 6 ações mais negociadas em 30/10/2016.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top_6 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(}\KeywordTok{head}\NormalTok{(tickers_equity$tickers)))}
+\KeywordTok{print}\NormalTok{(top_6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ITSA4" "PETR4" "ITUB4" "BBDC4" "ABEV3" "BBSE3"
+\end{verbatim}
+
+Baixando os dados
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados_top6 <-}\StringTok{ }\KeywordTok{ghfd_get_HF_data}\NormalTok{(top_6, }\DataTypeTok{type.market =} \StringTok{"equity"}\NormalTok{, }\DataTypeTok{first.date =} \KeywordTok{as.Date}\NormalTok{(}\StringTok{"2014-11-03"}\NormalTok{), }
+    \DataTypeTok{last.date =} \KeywordTok{as.Date}\NormalTok{(}\StringTok{"2016-10-30"}\NormalTok{), }\DataTypeTok{first.time =} \StringTok{"9:00:00"}\NormalTok{, }\DataTypeTok{last.time =} \StringTok{"18:00:00"}\NormalTok{, }
+    \DataTypeTok{type.output =} \StringTok{"agg"}\NormalTok{, }\DataTypeTok{agg.diff =} \StringTok{"1 hour"}\NormalTok{, }\DataTypeTok{dl.dir =} \StringTok{"ftp files"}\NormalTok{, }\DataTypeTok{max.dl.tries =} \DecValTok{10}\NormalTok{, }
+    \DataTypeTok{clean.files =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{save}\NormalTok{(dados_top6, }\DataTypeTok{file =} \StringTok{"dados_top6.Rda"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(dados_top6, }\DataTypeTok{n =} \DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{"dados_top6.Rda"}\NormalTok{)}
+\KeywordTok{dim}\NormalTok{(dados_top6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 22667    13
+\end{verbatim}
+
+Agora irei criar um banco de dados para cada ação e depois tornar os
+preços diários.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\NormalTok{dados_ITSA4 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top6, InstrumentSymbol ==}\StringTok{ "ITSA4"}\NormalTok{) %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SessionDate, }
+    \NormalTok{weighted.price)}
+\NormalTok{dados_PETR4 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top6, InstrumentSymbol ==}\StringTok{ "PETR4"}\NormalTok{) %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SessionDate, }
+    \NormalTok{weighted.price)}
+\NormalTok{dados_ITUB4 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top6, InstrumentSymbol ==}\StringTok{ "ITUB4"}\NormalTok{) %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SessionDate, }
+    \NormalTok{weighted.price)}
+\NormalTok{dados_BBDC4 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top6, InstrumentSymbol ==}\StringTok{ "BBDC4"}\NormalTok{) %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SessionDate, }
+    \NormalTok{weighted.price)}
+\NormalTok{dados_ABEV3 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top6, InstrumentSymbol ==}\StringTok{ "ABEV3"}\NormalTok{) %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SessionDate, }
+    \NormalTok{weighted.price)}
+\NormalTok{dados_BBSE3 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(dados_top6, InstrumentSymbol ==}\StringTok{ "BBSE3"}\NormalTok{) %>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SessionDate, }
+    \NormalTok{weighted.price)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{refs}{}
 
 \end{document}

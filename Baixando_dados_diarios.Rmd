@@ -27,3 +27,35 @@ library(GetHFData)
 tickers_equity <- ghfd_get_available_tickers_from_ftp(my.date = "2016-10-30",
 type.market = "equity", max.dl.tries = 10)
 head(tickers_equity, n = 10)
+```
+
+Criando um vetor com as 6 ações mais negociadas em 30/10/2016.
+
+```{r}
+top_6 <- c(as.character(head(tickers_equity$tickers)))
+print(top_6)
+```
+
+Baixando os dados
+
+```{r, eval = FALSE}
+dados_top6 <- ghfd_get_HF_data(top_6, type.market = "equity", first.date = as.Date("2014-11-03"), last.date = as.Date("2016-10-30"), first.time = "9:00:00", last.time = "18:00:00", type.output = "agg", agg.diff = "1 hour", dl.dir = "ftp files", max.dl.tries = 10, clean.files = FALSE)
+save(dados_top6, file = 'dados_top6.Rda')
+head(dados_top6, n=6)
+```
+```{r}
+load('dados_top6.Rda')
+dim(dados_top6)
+```
+Agora irei criar um banco de dados para cada ação e depois tornar os preços diários.
+
+```{r separando dados}
+library(dplyr)
+dados_ITSA4 <- filter(dados_top6, InstrumentSymbol == "ITSA4") %>% select( SessionDate, weighted.price) 
+dados_PETR4 <- filter(dados_top6, InstrumentSymbol == "PETR4") %>% select( SessionDate, weighted.price)
+dados_ITUB4 <- filter(dados_top6, InstrumentSymbol == "ITUB4") %>% select( SessionDate, weighted.price)
+dados_BBDC4 <- filter(dados_top6, InstrumentSymbol == "BBDC4") %>% select( SessionDate, weighted.price)
+dados_ABEV3 <- filter(dados_top6, InstrumentSymbol == "ABEV3") %>% select( SessionDate, weighted.price)
+dados_BBSE3 <- filter(dados_top6, InstrumentSymbol == "BBSE3") %>% select( SessionDate, weighted.price)
+```
+
