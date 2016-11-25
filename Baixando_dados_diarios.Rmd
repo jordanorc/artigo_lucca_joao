@@ -16,7 +16,7 @@ bibliography: bib_artigo_macroeconometria.bib
 ---
 
 ```{r setup, include=TRUE, tidy = TRUE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE,
+knitr::opts_chunk$set(echo = TRUE, cache = FALSE,
                 warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
 ```
 
@@ -46,16 +46,56 @@ head(dados_top6, n=6)
 ```{r}
 load('dados_top6.Rda')
 dim(dados_top6)
+str(dados_top6)
 ```
-Agora irei criar um banco de dados para cada ação e depois tornar os preços diários.
+Agora irei criar um banco de dados para cada ação e depois obter os log retornos.
 
-```{r separando dados}
+```{r separando dados, tidy = TRUE, tidy.opts = list(width.cutoff = 65)}
 library(dplyr)
-dados_ITSA4 <- filter(dados_top6, InstrumentSymbol == "ITSA4") %>% select( SessionDate, weighted.price) 
-dados_PETR4 <- filter(dados_top6, InstrumentSymbol == "PETR4") %>% select( SessionDate, weighted.price)
-dados_ITUB4 <- filter(dados_top6, InstrumentSymbol == "ITUB4") %>% select( SessionDate, weighted.price)
-dados_BBDC4 <- filter(dados_top6, InstrumentSymbol == "BBDC4") %>% select( SessionDate, weighted.price)
-dados_ABEV3 <- filter(dados_top6, InstrumentSymbol == "ABEV3") %>% select( SessionDate, weighted.price)
-dados_BBSE3 <- filter(dados_top6, InstrumentSymbol == "BBSE3") %>% select( SessionDate, weighted.price)
+dados_ITSA4 <- filter(dados_top6, InstrumentSymbol == "ITSA4") %>% select( SessionDate, weighted.price) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price)))
+dados_PETR4 <- filter(dados_top6, InstrumentSymbol == "PETR4") %>% select( SessionDate, weighted.price) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price)))
+dados_ITUB4 <- filter(dados_top6, InstrumentSymbol == "ITUB4") %>% select( SessionDate, weighted.price) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price)))
+dados_BBDC4 <- filter(dados_top6, InstrumentSymbol == "BBDC4") %>% select( SessionDate, weighted.price) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price)))
+dados_ABEV3 <- filter(dados_top6, InstrumentSymbol == "ABEV3") %>% select( SessionDate, weighted.price) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price))) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price)))
+dados_BBSE3 <- filter(dados_top6, InstrumentSymbol == "BBSE3") %>% select( SessionDate, weighted.price) %>% mutate( log_retorno = log(weighted.price) - lag(log(weighted.price)))
 ```
+Removendo `NA`s.
+
+```{r}
+dados_BBSE3 <- dados_BBSE3[2:3778,]
+dados_ABEV3 <- dados_ABEV3[2:3778,]
+dados_BBDC4 <- dados_BBDC4[2:3778,]
+dados_ITUB4 <- dados_ITUB4[2:3778,]
+dados_PETR4 <- dados_PETR4[2:3777,]
+dados_ITSA4 <- dados_ITSA4[2:3778,]
+```
+Criando matriz com os dados diários.
+
+```{r}
+matriz_logrtn <- data.frame(lrtn_ITSA4 = dados_ITSA4$log_retorno, lrtn_ITUB4 = dados_ITUB4$log_retorno, lrtn_BBDC4 = dados_BBDC4$log_retorno, lrtn_ABEV3 = dados_ABEV3$log_retorno, lrtn_BBSE3 = dados_BBSE3$log_retorno)
+summary(matriz_logrtn)
+cor(matriz_logrtn)
+```
+
+```{r}
+library(MTS)
+MTSplot(matriz_logrtn)
+```
+```{r}
+head(matriz_logrtn)
+```
+
+\newgeometry{l=0cm, b=0cm, t=0cm, r=0cm}
+```{r}
+library(MTS)
+ccm(matriz_logrtn)
+```
+\restoregeometry
+
+```{r}
+mq(matriz_logrtn)
+```
+
+
+
 
