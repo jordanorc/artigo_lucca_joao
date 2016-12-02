@@ -1,10 +1,13 @@
 ---
-title: "Baixando dados diários"
+title: "Baixando e analisando dados de alta frequência"
 author: 
 - Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho
 header-includes:
    - \setlength\parindent{24pt}
    - \usepackage[english, brazil]{babel}
+   - \usepackage[utf8]{inputenc}
+   - \usepackage{longtable}
+   - \usepackage{booktabs}
 date: \today
 output: 
   pdf_document: 
@@ -16,13 +19,13 @@ bibliography: bib_artigo_macroeconometria.bib
 ---
 
 ```{r setup, include=TRUE, tidy = TRUE}
-knitr::opts_chunk$set(echo = TRUE, cache = FALSE,
+knitr::opts_chunk$set(echo = TRUE, cache = FALSE, fig.height = 4,
                 warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
 ```
 
 # Ranking de negociações
 
-```{r tickers}
+```{r tickers, cache = TRUE}
 library(GetHFData)
 tickers_equity <- ghfd_get_available_tickers_from_ftp(my.date = "2016-10-30",
 type.market = "equity", max.dl.tries = 10)
@@ -69,33 +72,89 @@ dados_ITUB4 <- dados_ITUB4[2:3778,]
 dados_PETR4 <- dados_PETR4[2:3777,]
 dados_ITSA4 <- dados_ITSA4[2:3778,]
 ```
-Criando matriz com os dados diários.
+
+# Descrição dos Dados.
+
+Representação dos preços.
 
 ```{r}
-matriz_logrtn <- data.frame(lrtn_ITSA4 = dados_ITSA4$log_retorno, lrtn_ITUB4 = dados_ITUB4$log_retorno, lrtn_BBDC4 = dados_BBDC4$log_retorno, lrtn_ABEV3 = dados_ABEV3$log_retorno, lrtn_BBSE3 = dados_BBSE3$log_retorno)
+matriz_preco <- data.frame(ITSA4 = (dados_ITSA4$weighted.price), ITUB4 = (dados_ITUB4$weighted.price), BBDC4 = (dados_BBDC4$weighted.price), ABEV3 = (dados_ABEV3$weighted.price), BBSE3 = (dados_BBSE3$weighted.price))
+library(BMR)
+gtsplot(matriz_preco)
+summary(matriz_preco)
+cov(matriz_preco)
+```
+
+
+
+Criando matriz de log dos preços.
+
+
+
+```{r}
+matriz_logpreco <- data.frame(ITSA4 = log(dados_ITSA4$weighted.price), ITUB4 = log(dados_ITUB4$weighted.price), BBDC4 = log(dados_BBDC4$weighted.price), ABEV3 = log(dados_ABEV3$weighted.price), BBSE3 = log(dados_BBSE3$weighted.price))
+library(BMR)
+gtsplot(matriz_logpreco)
+summary(matriz_logpreco)
+cov(matriz_logpreco)
+```
+
+Criando matriz com os dados log retorno.
+
+```{r}
+matriz_logrtn <- data.frame(ITSA4 = dados_ITSA4$log_retorno, ITUB4 = dados_ITUB4$log_retorno, BBDC4 = dados_BBDC4$log_retorno, ABEV3 = dados_ABEV3$log_retorno, BBSE3 = dados_BBSE3$log_retorno)
 summary(matriz_logrtn)
+cov(matriz_logrtn)
 cor(matriz_logrtn)
 ```
 
 ```{r}
-library(MTS)
-MTSplot(matriz_logrtn)
+library(BMR)
+gtsplot(matriz_logrtn)
 ```
 ```{r}
 head(matriz_logrtn)
 ```
-
-\newgeometry{l=0cm, b=0cm, t=0cm, r=0cm}
-```{r}
-library(MTS)
-ccm(matriz_logrtn)
-```
-\restoregeometry
-
-```{r}
-mq(matriz_logrtn)
+# Testes de Estacionariedade
+ 
+```{r stat1, results='hide'}
+library(BMR)
+library(knitr)
+stat1 <- stationarity(matriz_preco, 4, 8)
 ```
 
+```{r}
+kable(stat1$KPSS, caption = "Teste KPSS (preço)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+kable(stat1$ADF, caption = "Teste ADF (preço)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+kable(stat1$ADFLags, caption = "Defagens do teste ADF (preço)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+```
+
+```{r stat2, results='hide'}
+stat2 <- stationarity(matriz_logpreco, 4, 8)
+```
+
+```{r}
+kable(stat2$KPSS, caption = "Teste KPSS (log preço)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+kable(stat2$ADF, caption = "Teste ADF (log preço)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+kable(stat2$ADFLags, caption = "Defagens do teste ADF (log preço)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+```
+
+
+```{r stat3, results='hide'}
+stat3 <- stationarity(matriz_logrtn, 4, 8)
+```
+
+```{r}
+kable(stat3$KPSS, caption = "Teste KPSS (log retorno)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+kable(stat3$ADF, caption = "Teste ADF (log retorno)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+kable(stat3$ADFLags, caption = "Defagens do teste ADF (log retorno)", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+```
+
+```{r, fig.height=2}
+library(BMR)
+gacf(matriz_logrtn)
+gpacf(matriz_logrtn)
+```
 
 
 
