@@ -280,7 +280,7 @@ Removendo \texttt{NA}s.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Descrição dos Dados.}\label{descricao-dos-dados.}
+\section{Descrição dos Dados}\label{descricao-dos-dados}
 
 Representação dos preços.
 
@@ -671,6 +671,210 @@ BBSE3 & 1 & 1 & 1\\
 \end{Shaded}
 
 \includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-13-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{save}\NormalTok{(matriz_preco, }\DataTypeTok{file =} \StringTok{"matriz_preco.Rda"}\NormalTok{)}
+\KeywordTok{save}\NormalTok{(matriz_logrtn, }\DataTypeTok{file =} \StringTok{"matriz_logrtn.Rda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{acf}\NormalTok{(matriz_logrtn)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{acf}\NormalTok{(matriz_logrtn, }\DataTypeTok{type =} \StringTok{"partial"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-14-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MVN)}
+\KeywordTok{uniPlot}\NormalTok{(matriz_logrtn, }\DataTypeTok{type =} \StringTok{"qqplot"}\NormalTok{)}
+\KeywordTok{uniPlot}\NormalTok{(matriz_logrtn, }\DataTypeTok{type =} \StringTok{"box"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{uniPlot}\NormalTok{(matriz_logrtn, }\DataTypeTok{type =} \StringTok{"scatter"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-15-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{uniPlot}\NormalTok{(matriz_logrtn, }\DataTypeTok{type =} \StringTok{"histogram"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MVN)}
+\KeywordTok{library}\NormalTok{(fBasics)}
+\KeywordTok{uniNorm}\NormalTok{(matriz_logrtn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $`Descriptive Statistics`
+##          n Mean Std.Dev Median    Min   Max   25th  75th   Skew Kurtosis
+## ITSA4 3777    0   0.007      0 -0.108 0.075 -0.003 0.003 -1.225   34.177
+## ITUB4 3777    0   0.007      0 -0.099 0.080 -0.003 0.003 -0.135   22.259
+## BBDC4 3777    0   0.008      0 -0.198 0.080 -0.004 0.004 -3.842  101.520
+## ABEV3 3777    0   0.005      0 -0.043 0.022 -0.002 0.002 -0.383    5.151
+## BBSE3 3777    0   0.007      0 -0.060 0.087 -0.004 0.003  0.369   11.993
+## 
+## $`Shapiro-Wilk's Normality Test`
+##    Variable Statistic   p-value Normality
+## 1   ITSA4      0.8502         0    NO    
+## 2   ITUB4      0.8742         0    NO    
+## 3   BBDC4      0.7937         0    NO    
+## 4   ABEV3      0.9517         0    NO    
+## 5   BBSE3      0.9191         0    NO
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jarqueberaTest}\NormalTok{(matriz_logrtn$ITSA4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 184985.3846
+##   P VALUE:
+##     Asymptotic p Value: < 2.2e-16 
+## 
+## Description:
+##  Thu Dec 08 15:46:56 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jarqueberaTest}\NormalTok{(matriz_logrtn$ITUB4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 78079.208
+##   P VALUE:
+##     Asymptotic p Value: < 2.2e-16 
+## 
+## Description:
+##  Thu Dec 08 15:46:56 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jarqueberaTest}\NormalTok{(matriz_logrtn$BBDC4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 1633035.358
+##   P VALUE:
+##     Asymptotic p Value: < 2.2e-16 
+## 
+## Description:
+##  Thu Dec 08 15:46:56 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jarqueberaTest}\NormalTok{(matriz_logrtn$ABEV3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 4274.4093
+##   P VALUE:
+##     Asymptotic p Value: < 2.2e-16 
+## 
+## Description:
+##  Thu Dec 08 15:46:56 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jarqueberaTest}\NormalTok{(matriz_logrtn$BBSE3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Title:
+##  Jarque - Bera Normalality Test
+## 
+## Test Results:
+##   STATISTIC:
+##     X-squared: 22752.1698
+##   P VALUE:
+##     Asymptotic p Value: < 2.2e-16 
+## 
+## Description:
+##  Thu Dec 08 15:46:56 2016 by user: Lucca
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(MTS)}
+\KeywordTok{mq}\NormalTok{(matriz_logrtn, }\DataTypeTok{lag =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Ljung-Box Statistics:  
+##         m       Q(m)     df    p-value
+##  [1,]     1       156      25        0
+##  [2,]     2       202      50        0
+##  [3,]     3       252      75        0
+##  [4,]     4       265     100        0
+##  [5,]     5       298     125        0
+##  [6,]     6       318     150        0
+##  [7,]     7       349     175        0
+##  [8,]     8       408     200        0
+##  [9,]     9       442     225        0
+## [10,]    10       465     250        0
+\end{verbatim}
+
+\includegraphics{Baixando_analisando_dados_af_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 
 \end{document}

@@ -73,7 +73,7 @@ dados_PETR4 <- dados_PETR4[2:3777,]
 dados_ITSA4 <- dados_ITSA4[2:3778,]
 ```
 
-# Descrição dos Dados.
+# Descrição dos Dados
 
 Representação dos preços.
 
@@ -154,7 +154,36 @@ kable(stat3$ADFLags, caption = "Defagens do teste ADF (log retorno)", format = "
 library(BMR)
 gacf(matriz_logrtn)
 gpacf(matriz_logrtn)
+save(matriz_preco, file = "matriz_preco.Rda")
+save(matriz_logrtn, file = "matriz_logrtn.Rda")
+```
+```{r, fig.height=8}
+acf(matriz_logrtn)
+acf(matriz_logrtn, type = "partial")
+```
+```{r, fig.height=8}
+library(MVN)
+uniPlot(matriz_logrtn, type = "qqplot")
+uniPlot(matriz_logrtn, type = "box")
+uniPlot(matriz_logrtn, type = "scatter")
 ```
 
+```{r, fig.height=6}
+uniPlot(matriz_logrtn, type = "histogram")
+```
 
+```{r}
+library(MVN)
+library(fBasics)
+uniNorm(matriz_logrtn)
+jarqueberaTest(matriz_logrtn$ITSA4)
+jarqueberaTest(matriz_logrtn$ITUB4)
+jarqueberaTest(matriz_logrtn$BBDC4)
+jarqueberaTest(matriz_logrtn$ABEV3)
+jarqueberaTest(matriz_logrtn$BBSE3)
+```
+```{r}
+library(MTS)
+mq(matriz_logrtn, lag = 10)
+```
 
