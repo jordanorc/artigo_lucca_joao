@@ -1,0 +1,50 @@
+---
+header-includes:
+   - \setlength\parindent{24pt}
+   - \usepackage[english, brazil]{babel}
+   - \usepackage[utf8]{inputenc}
+   - \usepackage{longtable}
+   - \usepackage{booktabs}
+   - \usepackage{indentfirst}
+output: 
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+    toc: no
+bibliography: bib_artigo_macroeconometria.bib
+csl: C:/Users/Lucca/GoogleDrive/DOUTORADO_UFPR/Macroeconometria/artigo_macroeconometria/artigo_lucca_joao/abnt-ufpr.csl
+---
+
+```{r setup, include=TRUE, tidy = TRUE, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = FALSE, fig.height = 4,
+                warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
+```
+
+# Revisão de Literatura: Estudos de volatilidade no mercado financeiro brasileiro
+
+
+@moreira_o_2004 investigaram o uso de dados de alta frequência na estimação da volatilidade diária e intradiária do IBOVESPA e no cálculo do valor em risco (VaR). Para isso usaram os modelos GARCH e EGARCH em conjunto com métodos determinísticos de filtragem de sazonalidade para a previsão da volatilidade e do VaR intradiários. Os autores compararam seus resultados com o método não paramétrico e no cálculo do VaR diário, dois métodos foram usados. O primeiro utiliza o desvio padrão amostral com janela móvel e o segundo usa alisamento exponencial. No cálculo do VaR diário, os dois métodos usados baseados em informações intradiárias apresentaram bom desempenho. Ao calcularem o VaR intradiário, seus resultados mostraram que a filtragem do padrão sazonal é indispensável à obtenção de resultados satisfatórios por meio dos modelos GARCH e EGARCH. A série utilizada pelos autores é o índice IBOVESPA, registrados a cada 15 minutos durante o período de 06/04/1998 a 19/07/2001 e utilizaram o retorno logarítmico para as estimações. Os autores também concluíram que o filtro de sazonalidade do intervalo intradiário é mais importante para melhorar os resultados das estimações do que o filtro referente ao dia da semana.
+
+@carvalho_modeling_2006 estimaram a volatilidade diária dos cinco ativos amis negociados na bolsa de valores de São Paulo (na época BOVESPA e BM&F eram separadas). Os autores utilizaram dados intradiários e utilizaram o estmador de variância realizada. Os autores concluíram que  os retornos diários padronizados pela volatilidade realizada são aproximadamente normais. Também concluíram que as log-volatilidades também apresentam distribuições bem próximas da normal. Em contraposição com a literatura corrente até então, não encontraram evidências de memória de longo prazo na série de volatilidade e um modelo de memória curta foi suficiente para os autores modelarem e preverem  as séries diárias de volatilidade. Os modelo usados pelos autores foram o retorno logarítimico padrozinado, EWMA, GARCH, EGARCH e GJR-GARCH.
+
+Autores         |Objeto           |periodicidade    | método
+-------------   | -------------   |-----------      |------------------
+@moreira_o_2004 | IBOVESPA        |  15 min e 1 dia |GARCH, EGARCH
+@carvalho_modeling_2006| top 5 ações IBOVESPA|15 min|EWMA, GARCH, EGARCH, GJR-GARCH, log retorno padronizado
+
+Table: Resumo dos estudos de volatilidade no mercado financeiro brasileiro
+
+
+
+
+
+
+
+
+
+
+\pagebreak
+
+# Referências {-}
+\setlength{\parindent}{0in}
