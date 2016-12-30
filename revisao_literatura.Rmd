@@ -28,13 +28,30 @@ knitr::opts_chunk$set(echo = FALSE, cache = FALSE, fig.height = 4,
 
 @carvalho_modeling_2006 estimaram a volatilidade diária dos cinco ativos amis negociados na bolsa de valores de São Paulo (na época BOVESPA e BM&F eram separadas). Os autores utilizaram dados intradiários e utilizaram o estmador de variância realizada. Os autores concluíram que  os retornos diários padronizados pela volatilidade realizada são aproximadamente normais. Também concluíram que as log-volatilidades também apresentam distribuições bem próximas da normal. Em contraposição com a literatura corrente até então, não encontraram evidências de memória de longo prazo na série de volatilidade e um modelo de memória curta foi suficiente para os autores modelarem e preverem  as séries diárias de volatilidade. Os modelo usados pelos autores foram o retorno logarítimico padrozinado, EWMA, GARCH, EGARCH e GJR-GARCH.
 
+@ceretta_intraday_2011 inestigaram como a especificação da distribuição influencia a performandce da previsão da volatilidade em dados intradiários do IBovespa, usando o modelo APARCH. As previsões dos autores foram realizadas supondo seis distribuições dinstintas: normal, normal assimétrica, *t-student*, *t-student* assimétrica, generalizada e generalizada assimétrica. Os resultados obtidos mostraram que o modelo com distribuição *t-student* assimétrica foi o que melhor se ajustou aos dados dentro da amostra, porém, na previsão fora da amostra, o modelo com distribuição normal apresentou melhor desempenho.
+
+@ceretta_intraday_2011 encontraram também que  uma modelagem feita a partir de um asérie longa pode incorporar efeitos atípicos no modelo, viesando a previsão. Os autores apoantam como  uma possível solução realizar um ajuste do modelo utilizando uma série menor, com menos efeitos esporádicos, em que, segundo eles, a previsão poderia ter um comportamento amis aproximado ao habitual para a série, o que minimizaria  o efeito de eventuais variações acentudas. Outro fato destacado pelos autores é que  o modelo que melhor se ajusta, nem sempre fornecerá  amelhor previsão. Isto, conforme @ceretta_intraday_2011 , ressalta  a importância da comparação entre os modelos  estudados fora da amostra para encontrar o modelo que melhor prevê o comportamento futuro da série. a partir disso os autores sugerirm que o contexto macroeconômico poderia influenciar tanto o ajuste quanto a previsão de uma série financeira.
+
+@junior_modeling_2013 usaram dados intradiários com intervalo de tempo de 5, 15 e 30 minutos para as ações mais comercializadas do índice BOVESPA. Seu artigo analisou dois modelos para estimação e previsão da volatilidade realizada: o modelo autorregressivo heterogÊneo de volatilidade realizada (HAR-RV) e o modelo de amostragem de dados mistos (MIDAS-RV). Os autores compararam previsões dentro e fora da amostra e encontraram melhores resultados com o modelo MIDAS-RV para previsões dentro da amostra. Para previsões fora da amostra  não encontraram diferença estatísticamente significativa entre os modelos. Por fim os autores acharam evidência de que  o uso de volatilidade realizada induz a distribuições dos retornos padronizados próximas da normal.
+
+@santos_volatility_2014 compararam diversos tipos de medidas de volatilidade e seus modelos de previsão, das famílias de modelos MIDAS-RV e HAR-RV. Realizaram comarações em temos da acurácia de previsão da volatilidade fora da amostra e usaram também uma combinação dos dois modelos. Para isso captaram dados intradiários do índice IBOVESPA e calcularam medidas de volatilidade como variância realizada, variação potência realizada e variação bi-potência realziada para serem usados como regressores em ambos os modelos. Para a estimação usaram um procedimento não paramétrico para mensurar separadamente  a variação da trajetória contínua da amostra e a parte de salto descontínuodo processo  de variação quadrático.Seus resultados em termos de erro quadrático médio sigerem que regressores envolvendo medidas de volatilidade que são robustos a saltos são melhores para previsão de volatilidade futura. Encontraram ainda que previsõe sbaseadas nestes regressre não são estatísticamente diferentes daqueles baseados em variância realizada. Por fim, acharam que a performance de previsão das três abordagens são estatísticamente equivalentes.
+
+@vicente_assessing_2014
+
+
 Autores         |Objeto           |periodicidade    | método
 -------------   | -------------   |-----------      |------------------
 @moreira_o_2004 | IBOVESPA        |  15 min e 1 dia |GARCH, EGARCH
 @carvalho_modeling_2006| top 5 ações IBOVESPA|15 min|EWMA, GARCH, EGARCH, GJR-GARCH, log retorno padronizado
+@ceretta_intraday_2011|IBOVESPA |    15 min  |APARCH
+@junior_modeling_2013|top 5 ações IBOVESPA|5, 15 e 30 min|HAR-RV e MIDAS-RV
+@morais_estimating_2014|top 2 BMF&BOVESPA|5 min  |GARCH, EGARCH, CGARCH e TGARCH
+@santos_volatility_2014| IBOVESPA | 15 min| HAR, MIDAS e combinação HAR-MIDAS
+@vicente_assessing_2014|
 
-Table: Resumo dos estudos de volatilidade no mercado financeiro brasileiro
+Table: Resumo dos estudos de volatilidade no mercado financeiro brasileiro.
 
+Fonte: Elaboração dos autores
 
 
 
