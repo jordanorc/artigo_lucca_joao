@@ -36,19 +36,20 @@ knitr::opts_chunk$set(echo = FALSE, cache = FALSE, fig.height = 4,
 
 @santos_volatility_2014 compararam diversos tipos de medidas de volatilidade e seus modelos de previsão, das famílias de modelos MIDAS-RV e HAR-RV. Realizaram comarações em temos da acurácia de previsão da volatilidade fora da amostra e usaram também uma combinação dos dois modelos. Para isso captaram dados intradiários do índice IBOVESPA e calcularam medidas de volatilidade como variância realizada, variação potência realizada e variação bi-potência realziada para serem usados como regressores em ambos os modelos. Para a estimação usaram um procedimento não paramétrico para mensurar separadamente  a variação da trajetória contínua da amostra e a parte de salto descontínuodo processo  de variação quadrático.Seus resultados em termos de erro quadrático médio sigerem que regressores envolvendo medidas de volatilidade que são robustos a saltos são melhores para previsão de volatilidade futura. Encontraram ainda que previsõe sbaseadas nestes regressre não são estatísticamente diferentes daqueles baseados em variância realizada. Por fim, acharam que a performance de previsão das três abordagens são estatísticamente equivalentes.
 
-@vicente_assessing_2014
+@vicente_assessing_2014 examinaram se investidores possuem percepções diferentes sobre a volatilidade diária de um ativo. Para isso, definiram a volatilidade percebida pelo investidor como a distribuição dos desvios-padrão dos retornos diários calculados de preços intradiários coletados aleatoriamente. Os autores encontraram que esta distribuição tem uma alto grau de dispersão, o que significa que diferentes investidores podem não compartilhar a emsma opinião a respeito da variabilidade do mesmo ativo. Entretanto, segundo @vicente_assessing_2014  a volatilidade de preços de fechamento é geralente menor que a mediana da volatilidade percebida pelo investidor, enquanto a volatilidade de preço de abertura é maior. Seus resultados indicaram que as volatilidades usando amostras diárias tradicionais de retornos diários podem não ser bons insumos de modelos financeiros, já que, conforme os autores,  eles podem não capturar adequadamente o risco em que os investidores são expostos.
 
+@ziegelmann_selection_2014 exploraram diferentes estimadores de matrix de covariância, tanto a condicional quanto a incondicional, obtidas por dados intradiários. Tais medidas foram usadas para obter um portfólio de variância mínima. Os dados foram coletados de forma sincronizada e não sincronizada. Para fins de comparação os autores também usaram dados diários. Em seu trabalho tambpem avaliaram as performances fora da amostra  dos índices obtidos de um portfólio de 30 ações comercializadas na BMF&BOVESPA. Seus resultados mostraram que o estimador da matrix de variância condicional dos retornos usando o modelo escalar vt-VECH baseado em dados de alta frequÊncia leva a melhoras substanciais de estimação, reduzindo o risco de portfólio, aumentando o retorno médio ajustado pelo risco e reduzindo o *turnover* financeiro.
 
-Autores         |Objeto           |periodicidade    | método
+Autores         |Objeto           |Periodicidade    | Método
 -------------   | -------------   |-----------      |------------------
-@moreira_o_2004 | IBOVESPA        |  15 min e 1 dia |GARCH, EGARCH
-@carvalho_modeling_2006| top 5 ações IBOVESPA|15 min|EWMA, GARCH, EGARCH, GJR-GARCH, log retorno padronizado
+    @moreira_o_2004 | IBOVESPA        |  15 min e 1 dia |GARCH, EGARCH
+@carvalho_modeling_2006| Top 5 empresas IBOVESPA|15 min|EWMA, GARCH, EGARCH, GJR-GARCH, log retorno padronizado
 @ceretta_intraday_2011|IBOVESPA |    15 min  |APARCH
-@junior_modeling_2013|top 5 ações IBOVESPA|5, 15 e 30 min|HAR-RV e MIDAS-RV
-@morais_estimating_2014|top 2 BMF&BOVESPA|5 min  |GARCH, EGARCH, CGARCH e TGARCH
+@junior_modeling_2013|Top 5 empresas IBOVESPA|5, 15 e 30 min|HAR-RV e MIDAS-RV
+@morais_estimating_2014|Top 2 BMF&BOVESPA|5 min  |GARCH, EGARCH, CGARCH e TGARCH
 @santos_volatility_2014| IBOVESPA | 15 min| HAR, MIDAS e combinação HAR-MIDAS
-@vicente_assessing_2014|
-
+@vicente_assessing_2014|84 empresas da BMF&BOVESPA|Amostragem aleatória de preços em um intervalo|Análise exploratória da Volatilidade Realizada
+@ziegelmann_selection_2014|Índice de 30 ações BMF&BOVESPA| 5 a 120 min| Covariância realizada, vt_VECH escalar e MRK
 Table: Resumo dos estudos de volatilidade no mercado financeiro brasileiro.
 
 Fonte: Elaboração dos autores
