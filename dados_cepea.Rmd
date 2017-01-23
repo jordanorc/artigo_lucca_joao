@@ -1,0 +1,39 @@
+---
+title: "Dados CEPEA"
+author: "Lucca Simeoni Pavan"
+date: "23 de janeiro de 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE, message = FALSE, error = FALSE, tudy = TRUE)
+```
+
+Os dados são de peridiocidade diária e são disponibilizados pela [CEPEA/EXALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de  a 23/01/2017.
+
+```{r}
+library(dplyr)
+acucar <- read.table("acucar.txt", sep = "\t", dec = ",", header = TRUE, encoding = "ANSI")
+Rdate <- strptime(as.character(acucar$Data),"%d/%m/%Y")
+acucar <- data.frame(Rdate, acucar) %>% mutate(Rdate = as.Date(Rdate)) %>% as.data.frame()
+```
+
+```{r}
+soja <- read.table("soja.txt", sep = "\t", dec = ",", header = TRUE, encoding = "ANSI")
+Rdate <- strptime(as.character(soja$Data),"%d/%m/%Y")
+soja <- data.frame(Rdate, soja) %>% mutate(Rdate = as.Date(Rdate)) %>% as.data.frame()
+```
+
+```{r}
+etanol <- read.table("etanol.txt", sep = "\t", dec = ",", header = TRUE, encoding = "ANSI")
+Rdate <- strptime(as.character(etanol$Data),"%d/%m/%Y")
+etanol <- data.frame(Rdate, etanol) %>% mutate(Rdate = as.Date(Rdate)) %>% as.data.frame()
+```
+```{r}
+dados_cepea <- merge(soja, etanol, by.x = "Rdate", by.y = "Rdate") %>% merge(acucar, by.x = "Rdate", by.y = "Rdate", all.x = TRUE) %>% select(Rdate = Rdate, acucar_BR = À.vista.R..x, acucar_US = À.vista.US..x, etanol_BR = À.vista.R..y, etanol_US = À.vista.US..y, soja_BR = À.vista.R., soja_US = À.vista.US.)
+save(dados_cepea, file = "dados_cepea.rda")
+head(dados_cepea)
+summary(dados_cepea)
+str(dados_cepea)
+```
+
