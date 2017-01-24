@@ -1,15 +1,28 @@
 ---
 title: "Dados CEPEA"
-author: "Lucca Simeoni Pavan"
-date: "23 de janeiro de 2017"
-output: pdf_document
+author: 
+- Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho
+header-includes:
+   - \setlength\parindent{24pt}
+   - \usepackage[english, brazil]{babel}
+   - \usepackage[utf8]{inputenc}
+   - \usepackage{longtable}
+   - \usepackage{booktabs}
+date: \today
+output: 
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+    toc: no
+bibliography: bib_artigo_macroeconometria.bib
 ---
 
-```{r setup, include=FALSE, echo = FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, warning = FALSE, message = FALSE, error = FALSE, tudy = TRUE)
+```{r setup, include=TRUE, tidy = TRUE, echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = FALSE, warning = FALSE, message = FALSE, error = FALSE, tidy = TRUE, tidy.opts = list(width.cutoff = 70))
 ```
 
-Os dados são de peridiocidade diária e são disponibilizados pela [CEPEA/EXALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de  a 23/01/2017.
+Os dados são de peridiocidade diária e são disponibilizados pela [CEPEA/EXALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de  a 23/01/2017. O dados para o etanol correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM&FBovespa Posto Paulínia (SP). Para o açúcar os dados são o Indicado Açúcar Criatal CEPEA/EXALQ - São Paulo por saca de 50 quilos. Para o soja os dados são o Indicador Soja CEPEA/EXALQ - Paraná por saca de 60 quilos. Ocorreram 15 valores faltante para o soja durante o período que foram interpolados pelo método *spline* conforme indicado por @zeileis_zoo:_2005.
 
 ```{r}
 library(dplyr)
@@ -25,15 +38,52 @@ soja <- data.frame(Rdate, soja) %>% mutate(Rdate = as.Date(Rdate)) %>% as.data.f
 ```
 
 ```{r}
+# Nos dados para o etanol os pontos (separadores de milhas) foram removidos no excel
 etanol <- read.table("etanol.txt", sep = "\t", dec = ",", header = TRUE, encoding = "ANSI")
 Rdate <- strptime(as.character(etanol$Data),"%d/%m/%Y")
 etanol <- data.frame(Rdate, etanol) %>% mutate(Rdate = as.Date(Rdate)) %>% as.data.frame()
 ```
 ```{r}
-dados_cepea <- merge(soja, etanol, by.x = "Rdate", by.y = "Rdate") %>% merge(acucar, by.x = "Rdate", by.y = "Rdate", all.x = TRUE) %>% select(Rdate = Rdate, acucar_BR = À.vista.R..x, acucar_US = À.vista.US..x, etanol_BR = À.vista.R..y, etanol_US = À.vista.US..y, soja_BR = À.vista.R., soja_US = À.vista.US.)
-save(dados_cepea, file = "dados_cepea.rda")
-head(dados_cepea)
-summary(dados_cepea)
-str(dados_cepea)
+library(zoo)
+library(knitr)
+dados_cepea <- merge(soja, etanol, by.x = "Rdate", by.y = "Rdate") %>% merge(acucar, by.x = "Rdate", by.y = "Rdate", all.x = TRUE) %>% select(Rdate = Rdate, acucar = À.vista.R..x, etanol = À.vista.R..y,  soja = À.vista.R. ) %>% ts() %>% na.spline() %>% as.data.frame() %>% mutate(Data = as.Date(Rdate))
+kable(summary(dados_cepea[,-1]), caption = "Resumo das séries de preços", format = "latex", booktabs = TRUE, longtable = TRUE, digits = 2)
+save(dados_cepea, file = "dados_cepea.Rda")
 ```
+
+```{r grafico1}
+par(mfrow = c(1, 2))
+dados_cepea <- mutate(dados_cepea, etanol=log(etanol), soja = log(soja), acucar = log(acucar))
+plot(dados_cepea$Data,
+     dados_cepea$etanol,
+     cex.axis = 1.2,
+     cex.lab  = 1.2, 
+     type     = "l",
+     lwd      = 3,
+     xlab     = "Data",
+     ylab     = "Preço", 
+     ylim     = c(2, 8))
+
+lines(dados_cepea$Data,
+      dados_cepea$acucar,
+      type = "l",
+      lwd  = 3, 
+      lty  = 2)
+
+lines(dados_cepea$Data,
+      dados_cepea$soja,
+      type = "l",
+      lwd  = 4, 
+      lty  = 3)
+
+legend("topleft",
+       c("Etanol", "Açúcar", "Soja"), 
+       y.intersp = 0.5,
+       cex       = 1.2,
+       lty       = c(1, 2, 3), 
+       lwd       = 3,
+       bty       = "n")
+
+```
+
 

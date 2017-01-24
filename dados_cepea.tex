@@ -1,0 +1,130 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Dados CEPEA},
+            pdfauthor={Lucca Simeoni Pavan  João Carlos de Carvalho},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Dados CEPEA}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Lucca Simeoni Pavan \hspace{1cm} João Carlos de Carvalho}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{\today}
+
+\setlength\parindent{24pt}
+\usepackage[english, brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+\begin{document}
+\maketitle
+
+Os dados são de peridiocidade diária e são disponibilizados pela
+\href{http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx}{CEPEA/EXALQ}
+e se referem ao período de a 23/01/2017. O dados para o etanol
+correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM\&FBovespa
+Posto Paulínia (SP). Para o açúcar os dados são o Indicado Açúcar
+Criatal CEPEA/EXALQ - São Paulo por saca de 50 quilos. Para o soja os
+dados são o Indicador Soja CEPEA/EXALQ - Paraná por saca de 60 quilos.
+Ocorreram 15 valores faltante para o soja durante o período que foram
+interpolados pelo método \emph{spline} conforme indicado por Zeileis and
+Grothendieck (2005).
+
+\begin{longtable}[t]{lllll}
+\caption{\label{tab:unnamed-chunk-4}Resumo das séries de preços}\\
+\toprule
+  &     acucar &     etanol &      soja &      Data\\
+\midrule
+ & Min.   :32.97 & Min.   : 732.5 & Min.   : 39.99 & Min.   :2010-01-25\\
+ & 1st Qu.:48.25 & 1st Qu.:1105.1 & 1st Qu.: 49.13 & 1st Qu.:2011-10-20\\
+ & Median :63.17 & Median :1190.5 & Median : 53.92 & Median :2013-07-24\\
+ & Mean   :61.47 & Mean   :1238.0 & Mean   : 59.97 & Mean   :2013-07-23\\
+ & 3rd Qu.:73.06 & 3rd Qu.:1317.0 & 3rd Qu.: 71.58 & 3rd Qu.:2015-04-23\\
+ & Max.   :93.18 & Max.   :1924.5 & Max.   :100.92 & Max.   :2017-01-20\\
+\bottomrule
+\end{longtable}
+
+\includegraphics{dados_cepea_files/figure-latex/grafico1-1.pdf}
+
+\hypertarget{refs}{}
+\hypertarget{ref-zeileis_zoo:_2005}{}
+Zeileis, Achim, and Gabor Grothendieck. 2005. ``Zoo: S3 Infrastructure
+for Regular and Irregular Time Series.'' \emph{Journal of Statistical
+Software} 014 (i06): 1--27.
+doi:\href{https://doi.org/10.18637/jss.v014.i06}{10.18637/jss.v014.i06}.
+
+
+\end{document}
