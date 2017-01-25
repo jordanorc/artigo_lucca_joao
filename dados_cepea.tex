@@ -126,9 +126,9 @@ seguinte fórmula:
 
 \[v_i = \bigg(\Delta \log p_{i,t}\bigg)^2.\] Em que \(p_{i,t}\) é o
 preço da \emph{commodity} \(i\) e \(i = \text{etanol, açúcar ou soja}\).
-Percebe-se que a volatilidade do preço etanol é bem mais intensa e com
-maior amplitude se comparadas às volatilidades do preço do soja e do
-preço do açúcar. Entretanto, conforme López Cabrera and Schulz (2016) é
+Percebe-se que a volatilidade do preço do açúcar é bem mais intensa e
+com maior amplitude se comparadas às volatilidades do preço do soja e do
+preço do etanol. Entretanto, conforme López Cabrera and Schulz (2016) é
 característico das séries de preços de \emph{commodities} serem
 cointegradas e uma medida de volatilidade que leve em conta esta
 característica dos dados se torna mais apropriada. Para isso pode-se
@@ -228,6 +228,68 @@ quadrado para a etanol, açúcar e soja}
 
 \begin{verbatim}
 ## [1] 3.767565e-36 7.597055e-10 2.443580e-30
+\end{verbatim}
+
+\begin{longtable}[t]{lrrrrrrr}
+\caption{\label{tab:ADF e KPSS}Teste KPSS retorno}\\
+\toprule
+  & etanol & acucar & soja & 1 Pct & 2.5 Pct & 5 Pct & 10 Pct\\
+\midrule
+Time Trend: & 0.05 & 0.06 & 0.11 & 0.22 & 0.18 & 0.15 & 0.12\\
+No Trend: & 0.15 & 0.14 & 0.72 & 0.74 & 0.57 & 0.46 & 0.35\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{lrrrrrrr}
+\caption{\label{tab:ADF e KPSS}Teste ADF retorno}\\
+\toprule
+  & etanol & acucar & soja & 1 Pct & 2.5 Pct & 5 Pct & 10 Pct\\
+\midrule
+Time Trend: & -15.51 & -25.43 & -9.18 & -3.96 & -3.66 & -3.41 & -3.12\\
+Constant: & -15.49 & -25.42 & -9.11 & -3.43 & -3.12 & -2.86 & -2.57\\
+Neither: & -15.50 & -25.42 & -9.11 & -2.58 & -2.23 & -1.95 & -1.62\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{lrrr}
+\caption{\label{tab:ADF e KPSS}Defasagens do teste ADF}\\
+\toprule
+  & Trend Model & Drift Model & None\\
+\midrule
+etanol & 1 & 1 & 1\\
+acucar & 1 & 1 & 1\\
+soja & 4 & 4 & 4\\
+\bottomrule
+\end{longtable}
+
+\begin{verbatim}
+## 
+##  Phillips-Perron Unit Root Test
+## 
+## data:  ldif_cepea[-1, 2]
+## Dickey-Fuller Z(alpha) = -990.04, Truncation lag parameter = 8,
+## p-value = 0.01
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Phillips-Perron Unit Root Test
+## 
+## data:  ldif_cepea[-1, 3]
+## Dickey-Fuller Z(alpha) = -1473.5, Truncation lag parameter = 8,
+## p-value = 0.01
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Phillips-Perron Unit Root Test
+## 
+## data:  ldif_cepea[-1, 4]
+## Dickey-Fuller Z(alpha) = -1685.5, Truncation lag parameter = 8,
+## p-value = 0.01
+## alternative hypothesis: stationary
 \end{verbatim}
 
 \pagebreak

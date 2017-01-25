@@ -80,7 +80,7 @@ save(dados_cepea, file = "dados_cepea.Rda")
 Para vizualização dos dados foi plotado na Figura 1 os gráficos do log da série de preços e do log da série de preços deflacionada. Optou-se pela apresentação na forma de logarítmo devido a diferença de escala entre o preço do etanol e dos preços da soja e açúcar. Na Figura 2 consta a volatilidade $v_i$ do etanol, açúcar e soja medida pela seguinte fórmula:
 
 $$v_i = \bigg(\Delta \log p_{i,t}\bigg)^2.$$
-Em que $p_{i,t}$ é o preço da *commodity* $i$ e $i = \text{etanol, açúcar ou soja}$. Percebe-se que a volatilidade do preço etanol é bem mais intensa e com maior amplitude se comparadas às volatilidades do preço do soja e do preço do  açúcar. Entretanto, conforme @lopez_cabrera_volatility_2016 é característico das séries de preços de *commodities* serem cointegradas e uma medida de volatilidade que leve em conta esta característica dos dados se torna mais apropriada. Para isso pode-se modelar a média da série de preços por meio e um modelo de correção de erros (VECM, sigla em inglês) e então filtrar a série de preços do co-movimento de suas médias condicionais.
+Em que $p_{i,t}$ é o preço da *commodity* $i$ e $i = \text{etanol, açúcar ou soja}$. Percebe-se que a volatilidade do preço do açúcar é bem mais intensa e com maior amplitude se comparadas às volatilidades do preço do soja e do preço do  etanol. Entretanto, conforme @lopez_cabrera_volatility_2016 é característico das séries de preços de *commodities* serem cointegradas e uma medida de volatilidade que leve em conta esta característica dos dados se torna mais apropriada. Para isso pode-se modelar a média da série de preços por meio e um modelo de correção de erros (VECM, sigla em inglês) e então filtrar a série de preços do co-movimento de suas médias condicionais.
 
 ```{r grafico1, fig.height= 6, fig.width=14, fig.cap = "Logarítimo dos preços diários e preço diário deflacionado pelo Ìndice de Preço do Produtor (IPP) para o etanol, açúcar e soja"}
 par(mfrow = c(1, 2))
@@ -117,8 +117,7 @@ legend("bottomleft",
        bty       = "n")
 
 load("dados_cepea_deflacionado.rda")
-dados_cepea_deflacionado <- mutate(dados_cepea_deflacionado, ETANOLDF=log(ETANOLDF), SOJADF = log(SOJADF), ACUCARDF = log(ACUCARDF)) %>% select(Data = Data, etanol = ETANOLDF, acucar = ACUCARDF, soja = SOJADF)
-save(dados_cepea_deflacionado, file = "dados_cepea_deflafionado.Rda")
+
 plot(dados_cepea_deflacionado$Data,
      dados_cepea_deflacionado$etanol,
      cex.axis = 1.2,
@@ -255,6 +254,22 @@ print("Shapiro-Wilk")
 print(c(shapiro.test(ldif_cepea[-1, 2])$p.value,
         shapiro.test(ldif_cepea[-1, 3])$p.value,
         shapiro.test(ldif_cepea[-1, 4])$p.value))
+
+```
+```{r ADF e KPSS}
+library(BMR)
+stat_cepea <- stationarity(ldif_cepea[-1,-1], 4, 8, print = FALSE)
+library(knitr)
+kable(stat_cepea$KPSS, caption = "Teste KPSS retorno", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
+kable(stat_cepea$ADF, caption = "Teste ADF retorno", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
+kable(stat_cepea$ADFLags, caption = "Defasagens do teste ADF", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
+```
+
+```{r pp test}
+library(tseries)
+pp.test(ldif_cepea[-1,2])
+pp.test(ldif_cepea[-1,3])
+pp.test(ldif_cepea[-1,4])
 
 ```
 
