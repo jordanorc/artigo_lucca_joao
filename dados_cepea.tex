@@ -104,7 +104,7 @@ interpolados pelo método \emph{spline} conforme indicado por Zeileis and
 Grothendieck (2005).
 
 \begin{longtable}[t]{lllll}
-\caption{\label{tab:unnamed-chunk-4}Resumo das séries de preços}\\
+\caption{\label{tab:unnamed-chunk-5}Resumo das séries de preços}\\
 \toprule
   &     acucar &     etanol &      soja &      Data\\
 \midrule
@@ -125,10 +125,16 @@ consta a volatilidade \(v_i\) do etanol, açúcar e soja medida pela
 seguinte fórmula:
 
 \[v_i = \bigg(\Delta \log p_{i,t}\bigg)^2.\] Em que \(p_{i,t}\) é o
-preço da \emph{commoditie} \(i\) e
-\(i = \text{etanol, açúcar ou soja}\). Percebe-se que a volatilidade do
-preço etanol é bem mais intensa e com maior amplitude se comparadas às
-volatilidades do preço do soja e do preço do açúcar.
+preço da \emph{commodity} \(i\) e \(i = \text{etanol, açúcar ou soja}\).
+Percebe-se que a volatilidade do preço etanol é bem mais intensa e com
+maior amplitude se comparadas às volatilidades do preço do soja e do
+preço do açúcar. Entretanto, conforme López Cabrera and Schulz (2016) é
+característico das séries de preços de \emph{commodities} serem
+cointegradas e uma medida de volatilidade que leve em conta esta
+característica dos dados se torna mais apropriada. Para isso pode-se
+modelar a média da série de preços por meio e um modelo de correção de
+erros (VECM, sigla em inglês) e então filtrar a série de preços do
+co-movimento de suas médias condicionais.
 
 \begin{figure}[htbp]
 \centering
@@ -144,6 +150,86 @@ volatilidades do preço do soja e do preço do açúcar.
 quadrado para a etanol, açúcar e soja}
 \end{figure}
 
+\begin{verbatim}
+## [1] "Mean"
+\end{verbatim}
+
+\begin{verbatim}
+##   etanol   acucar     soja 
+## 6.835560 3.825533 3.799046
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "St.D."
+\end{verbatim}
+
+\begin{verbatim}
+##           etanol    acucar      soja
+## etanol 0.1308831       NaN 0.1344304
+## acucar       NaN 0.1462893       NaN
+## soja   0.1344304       NaN 0.2241026
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Corr."
+\end{verbatim}
+
+\begin{verbatim}
+##           etanol     acucar       soja
+## etanol  1.000000 -0.1788200  0.6161190
+## acucar -0.178820  1.0000000 -0.4055711
+## soja    0.616119 -0.4055711  1.0000000
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Skewness"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] -0.2896277 -0.1595681 -1.0635649
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Kurtosis"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 12.333846  4.283914 12.858063
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Box Ljung (residuals)"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0.000000e+00 5.107026e-15 0.000000e+00
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Box-Ljung (squared residuals)"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0.000000e+00 2.233032e-07 0.000000e+00
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "ARCH"
+\end{verbatim}
+
+\begin{verbatim}
+##  Chi-squared  Chi-squared  Chi-squared 
+## 0.0000000000 0.0006158753 0.0000000000
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Shapiro-Wilk"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 3.767565e-36 7.597055e-10 2.443580e-30
+\end{verbatim}
+
 \pagebreak
 
 \section*{Referências}\label{referencias}
@@ -152,6 +238,12 @@ quadrado para a etanol, açúcar e soja}
 \setlength{\parindent}{0in}
 
 \hypertarget{refs}{}
+\hypertarget{ref-lopez_cabrera_volatility_2016}{}
+López Cabrera, Brenda, and Franziska Schulz. 2016. ``Volatility Linkages
+Between Energy and Agricultural Commodity Prices.'' \emph{Energy
+Economics} 54 (February): 190--203.
+doi:\href{https://doi.org/10.1016/j.eneco.2015.11.018}{10.1016/j.eneco.2015.11.018}.
+
 \hypertarget{ref-zeileis_zoo:_2005}{}
 Zeileis, Achim, and Gabor Grothendieck. 2005. ``Zoo: S3 Infrastructure
 for Regular and Irregular Time Series.'' \emph{Journal of Statistical
