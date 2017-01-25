@@ -118,6 +118,7 @@ legend("bottomleft",
 
 load("dados_cepea_deflacionado.rda")
 dados_cepea_deflacionado <- mutate(dados_cepea_deflacionado, ETANOLDF=log(ETANOLDF), SOJADF = log(SOJADF), ACUCARDF = log(ACUCARDF)) %>% select(Data = Data, etanol = ETANOLDF, acucar = ACUCARDF, soja = SOJADF)
+save(dados_cepea_deflacionado, file = "dados_cepea_deflafionado.Rda")
 plot(dados_cepea_deflacionado$Data,
      dados_cepea_deflacionado$etanol,
      cex.axis = 1.2,
