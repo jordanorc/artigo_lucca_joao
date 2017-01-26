@@ -231,7 +231,69 @@ quadrado para a etanol, açúcar e soja}
 \end{verbatim}
 
 \begin{longtable}[t]{lrrrrrrr}
-\caption{\label{tab:ADF e KPSS}Teste KPSS retorno}\\
+\caption{\label{tab:ADF e KPSS nivel}Teste KPSS preço em nível}\\
+\toprule
+  & etanol & acucar & soja & 1 Pct & 2.5 Pct & 5 Pct & 10 Pct\\
+\midrule
+Time Trend: & 1.57 & 3.80 & 5.17 & 0.22 & 0.18 & 0.15 & 0.12\\
+No Trend: & 1.88 & 10.65 & 9.45 & 0.74 & 0.57 & 0.46 & 0.35\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{lrrrrrrr}
+\caption{\label{tab:ADF e KPSS nivel}Teste ADF preço em nível}\\
+\toprule
+  & etanol & acucar & soja & 1 Pct & 2.5 Pct & 5 Pct & 10 Pct\\
+\midrule
+Time Trend: & -3.83 & -1.67 & -2.44 & -3.96 & -3.66 & -3.41 & -3.12\\
+Constant: & -3.87 & -1.90 & -2.67 & -3.43 & -3.12 & -2.86 & -2.57\\
+Neither: & -0.16 & 0.27 & -0.39 & -2.58 & -2.23 & -1.95 & -1.62\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{lrrr}
+\caption{\label{tab:ADF e KPSS nivel}Defasagens do teste ADF}\\
+\toprule
+  & Trend Model & Drift Model & None\\
+\midrule
+etanol & 2 & 2 & 2\\
+acucar & 1 & 1 & 1\\
+soja & 6 & 6 & 5\\
+\bottomrule
+\end{longtable}
+
+\begin{verbatim}
+## 
+##  Phillips-Perron Unit Root Test
+## 
+## data:  dados_cepea_deflacionado[, "etanol"]
+## Dickey-Fuller Z(alpha) = -18.985, Truncation lag parameter = 8,
+## p-value = 0.08703
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Phillips-Perron Unit Root Test
+## 
+## data:  dados_cepea_deflacionado[, "acucar"]
+## Dickey-Fuller Z(alpha) = -6.7393, Truncation lag parameter = 8,
+## p-value = 0.7338
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Phillips-Perron Unit Root Test
+## 
+## data:  dados_cepea_deflacionado[, "soja"]
+## Dickey-Fuller Z(alpha) = -3.9061, Truncation lag parameter = 8,
+## p-value = 0.8919
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{longtable}[t]{lrrrrrrr}
+\caption{\label{tab:ADF e KPSS logdif}Teste KPSS retorno}\\
 \toprule
   & etanol & acucar & soja & 1 Pct & 2.5 Pct & 5 Pct & 10 Pct\\
 \midrule
@@ -241,7 +303,7 @@ No Trend: & 0.15 & 0.14 & 0.72 & 0.74 & 0.57 & 0.46 & 0.35\\
 \end{longtable}
 
 \begin{longtable}[t]{lrrrrrrr}
-\caption{\label{tab:ADF e KPSS}Teste ADF retorno}\\
+\caption{\label{tab:ADF e KPSS logdif}Teste ADF retorno}\\
 \toprule
   & etanol & acucar & soja & 1 Pct & 2.5 Pct & 5 Pct & 10 Pct\\
 \midrule
@@ -252,7 +314,7 @@ Neither: & -15.50 & -25.42 & -9.11 & -2.58 & -2.23 & -1.95 & -1.62\\
 \end{longtable}
 
 \begin{longtable}[t]{lrrr}
-\caption{\label{tab:ADF e KPSS}Defasagens do teste ADF}\\
+\caption{\label{tab:ADF e KPSS logdif}Defasagens do teste ADF}\\
 \toprule
   & Trend Model & Drift Model & None\\
 \midrule
@@ -266,7 +328,7 @@ soja & 4 & 4 & 4\\
 ## 
 ##  Phillips-Perron Unit Root Test
 ## 
-## data:  ldif_cepea[-1, 2]
+## data:  ldif_cepea[-1, "etanol"]
 ## Dickey-Fuller Z(alpha) = -990.04, Truncation lag parameter = 8,
 ## p-value = 0.01
 ## alternative hypothesis: stationary
@@ -276,7 +338,7 @@ soja & 4 & 4 & 4\\
 ## 
 ##  Phillips-Perron Unit Root Test
 ## 
-## data:  ldif_cepea[-1, 3]
+## data:  ldif_cepea[-1, "acucar"]
 ## Dickey-Fuller Z(alpha) = -1473.5, Truncation lag parameter = 8,
 ## p-value = 0.01
 ## alternative hypothesis: stationary
@@ -286,7 +348,7 @@ soja & 4 & 4 & 4\\
 ## 
 ##  Phillips-Perron Unit Root Test
 ## 
-## data:  ldif_cepea[-1, 4]
+## data:  ldif_cepea[-1, "soja"]
 ## Dickey-Fuller Z(alpha) = -1685.5, Truncation lag parameter = 8,
 ## p-value = 0.01
 ## alternative hypothesis: stationary

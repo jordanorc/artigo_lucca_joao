@@ -256,7 +256,28 @@ print(c(shapiro.test(ldif_cepea[-1, 2])$p.value,
         shapiro.test(ldif_cepea[-1, 4])$p.value))
 
 ```
-```{r ADF e KPSS}
+
+
+
+
+```{r ADF e KPSS nivel}
+library(BMR)
+stat_cepea <- stationarity(dados_cepea_deflacionado[,-1], 4, 8, print = FALSE)
+library(knitr)
+kable(stat_cepea$KPSS, caption = "Teste KPSS preço em nível", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
+kable(stat_cepea$ADF, caption = "Teste ADF preço em nível", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
+kable(stat_cepea$ADFLags, caption = "Defasagens do teste ADF", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
+```
+
+```{r pp test nivel}
+library(tseries)
+pp.test(dados_cepea_deflacionado[,"etanol"])
+pp.test(dados_cepea_deflacionado[,"acucar"])
+pp.test(dados_cepea_deflacionado[,"soja"])
+
+```
+
+```{r ADF e KPSS logdif}
 library(BMR)
 stat_cepea <- stationarity(ldif_cepea[-1,-1], 4, 8, print = FALSE)
 library(knitr)
@@ -265,11 +286,11 @@ kable(stat_cepea$ADF, caption = "Teste ADF retorno", format = "latex", booktabs 
 kable(stat_cepea$ADFLags, caption = "Defasagens do teste ADF", format = "latex", booktabs = TRUE,longtable = TRUE, digits = 2)
 ```
 
-```{r pp test}
+```{r pp test logdif}
 library(tseries)
-pp.test(ldif_cepea[-1,2])
-pp.test(ldif_cepea[-1,3])
-pp.test(ldif_cepea[-1,4])
+pp.test(ldif_cepea[-1,"etanol"])
+pp.test(ldif_cepea[-1,"acucar"])
+pp.test(ldif_cepea[-1,"soja"])
 
 ```
 
