@@ -46,7 +46,7 @@ libraries = c("car",
               "bookdown")
 ```
 
-# Dados e Análise Descritiva.
+## Dados e Análise Descritiva.
 
 Os dados são de peridiocidade diária, são disponibilizados pela [CEPEA/EXALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de 25/01/2010  a 20/01/2017, porém ao se deflacionarem os dados a série foi reduzida para 29/12/2016 pois não foram encontrados o índice de preço para o no de 2017. Os dados para o etanol correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM&FBovespa Posto Paulínia (SP). Para o açúcar os dados são o Indicador Açúcar Criatal CEPEA/EXALQ - São Paulo por saca de 50 quilos. Para o soja os dados são o Indicador Soja CEPEA/EXALQ - Paraná por saca de 60 quilos. Ocorreram 15 valores faltante para o soja durante o período, estes dados foram interpolados pelo método *spline* conforme indicado por @zeileis_zoo:_2005.
 
@@ -479,12 +479,9 @@ Table: Testes de heterocedasticidade condicional.
 
 Todos os teste falharam em rejeitar a hipótese nula de ausência de heterocedasticidade condicional a um nível de significância inferior a 1\%, como era o esperado já que observamos na Figura 3 que os dados sugeriam a ocorrência de heterocedasticidade condicional e os dados por se tratarem de séries financeiras possuem este comportamento. Uma vez que foi indentifaca a heterocedasticidade condicional para a série de dados podemos modelar a heterocedasticidade condicional.
 
-## Estimação dos modelos GARCH BEKK e DCC.
+# Estimação dos modelos MGARCH BEKK e DCC.
 
-```{r BEKK}
-resid.vec <- refVEC$residuals
 
-```
 
 
 \pagebreak
