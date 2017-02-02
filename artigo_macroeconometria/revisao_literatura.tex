@@ -1,0 +1,652 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\setlength\parindent{24pt}
+\usepackage[english, brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+
+\begin{document}
+
+\section{Revisão de Literatura: Estudos de volatilidade no mercado
+financeiro
+brasileiro}\label{revisao-de-literatura-estudos-de-volatilidade-no-mercado-financeiro-brasileiro}
+
+Pesquisas usando dados de alta frequência ou dados com informações
+financeiras intradiárias vêm sendo feitas no Brasil, principalmente
+usando informações sobre o mercado de ações. Com este tipo de dado foram
+realizados diversos estudos, em grande parte que estudam a volatilidade
+do retorno nos ativos financeiros. No caso de mercado de ações os
+estudos tratam sobre o melhor modelo de ajuste e acurácia de previsão.
+Já o mercado de futuros, mais especifivamente o de \emph{commodities},
+os estudos têm sido feitos para entender as características de
+volatilidade do preço dos ativos, mas com dados de peridiocidade
+predominantemente mensais ou semanais.
+
+Moreira e Lemgruber (2004) investigaram o uso de dados de alta
+frequência na estimação da volatilidade diária e intradiária do IBOVESPA
+e no cálculo do valor em risco (VaR). Para isso usaram os modelos GARCH
+e EGARCH em conjunto com métodos determinísticos de filtragem de
+sazonalidade para a previsão da volatilidade e do VaR intradiários. Os
+autores compararam seus resultados com o método não paramétrico e no
+cálculo do VaR diário, dois métodos foram usados. O primeiro utiliza o
+desvio padrão amostral com janela móvel e o segundo usa alisamento
+exponencial. No cálculo do VaR diário, os dois métodos usados baseados
+em informações intradiárias apresentaram bom desempenho. Ao calcularem o
+VaR intradiário, seus resultados mostraram que a filtragem do padrão
+sazonal é indispensável à obtenção de resultados satisfatórios por meio
+dos modelos GARCH e EGARCH. A série utilizada pelos autores é o índice
+IBOVESPA, registrados a cada 15 minutos durante o período de 06/04/1998
+a 19/07/2001 e utilizaram o retorno logarítmico para as estimações. Os
+autores também concluíram que o filtro de sazonalidade do intervalo
+intradiário é mais importante para melhorar os resultados das estimações
+do que o filtro referente ao dia da semana.
+
+Carvalho et al. (2006) estimaram a volatilidade diária dos cinco ativos
+mais negociados na bolsa de valores de São Paulo. Os autores utilizaram
+dados intradiários e utilizaram o estimador de variância realizada. Os
+autores concluíram que os retornos diários padronizados pela
+volatilidade realizada são aproximadamente normais. Também concluíram
+que as log-volatilidades também apresentam distribuições bem próximas da
+normal. Em contraposição com a literatura corrente até então, não
+encontraram evidências de memória de longo prazo na série de
+volatilidade e um modelo de memória curta foi suficiente para os autores
+modelarem e preverem as séries diárias de volatilidade. Os modelo usados
+pelos autores foram o retorno logarítimico padrozinado, EWMA, GARCH,
+EGARCH e GJR-GARCH.
+
+Ceretta et al. (2011) inestigaram como a especificação da distribuição
+influencia a performance da previsão da volatilidade em dados
+intradiários do IBovespa, usando o modelo APARCH. As previsões dos
+autores foram realizadas supondo seis distribuições dinstintas: normal,
+normal assimétrica, \emph{t-student}, \emph{t-student} assimétrica,
+generalizada e generalizada assimétrica. Os resultados obtidos mostraram
+que o modelo com distribuição \emph{t-student} assimétrica foi o que
+melhor se ajustou aos dados dentro da amostra, porém, na previsão fora
+da amostra, o modelo com distribuição normal apresentou melhor
+desempenho. Ceretta et al. (2011) encontraram também que uma modelagem
+feita a partir de uma série longa pode incorporar efeitos atípicos no
+modelo, viesando a previsão. Os autores apontam como uma possível
+solução realizar um ajuste do modelo utilizando uma série menor, com
+menos efeitos esporádicos, em que, segundo eles, a previsão poderia ter
+um comportamento mais aproximado ao habitual para a série, o que
+minimizaria o efeito de eventuais variações acentudas. Outro fato
+destacado pelos autores é que o modelo que melhor se ajusta, nem sempre
+fornecerá a melhor previsão. Isto, conforme Ceretta et al. (2011) ,
+ressalta a importância da comparação entre os modelos estudados fora da
+amostra para encontrar o modelo que melhor prevê o comportamento futuro
+da série. A partir disso os autores sugerirm que o contexto
+macroeconômico poderia influenciar tanto o ajuste quanto a previsão de
+uma série financeira.
+
+Junior e Pereira (2013) usaram dados intradiários com intervalo de tempo
+de 5, 15 e 30 minutos para as ações mais comercializadas do índice
+BOVESPA. Seu artigo analisou dois modelos para estimação e previsão da
+volatilidade realizada: o modelo autorregressivo heterogêneo de
+volatilidade realizada (HAR-RV) e o modelo de amostragem de dados mistos
+(MIDAS-RV). Os autores compararam previsões dentro e fora da amostra e
+encontraram melhores resultados com o modelo MIDAS-RV para previsões
+dentro da amostra. Para previsões fora da amostra não encontraram
+diferença estatísticamente significativa entre os modelos. Por fim os
+autores acharam evidência de que o uso de volatilidade realizada induz a
+distribuições dos retornos padronizados próximas da normal.
+
+Santos e Ziegelmann (2014) compararam diversos tipos de medidas de
+volatilidade e seus modelos de previsão, das famílias de modelos
+MIDAS-RV e HAR-RV. Realizaram comparações em termos da acurácia de
+previsão da volatilidade fora da amostra e usaram também uma combinação
+dos dois modelos. Para isso captaram dados intradiários do índice
+IBOVESPA e calcularam medidas de volatilidade como variância realizada,
+variação potência realizada e variação bi-potência realziada para serem
+usados como regressores em ambos os modelos. Para a estimação usaram um
+procedimento não paramétrico para mensurar separadamente a variação da
+trajetória contínua da amostra e a parte de salto descontínuodo de
+processo de variação quadrático. Seus resultados em termos de erro
+quadrático médio sugerem que regressores envolvendo medidas de
+volatilidade que são robustos a saltos são melhores para previsão de
+volatilidade futura. Encontraram ainda que previsões baseadas nestes
+regressores não são estatísticamente diferentes daqueles baseados em
+variância realizada. Por fim, acharam que a performance de previsão das
+três abordagens são estatísticamente equivalentes.
+
+Vicente et al. (2014) examinaram se investidores possuem percepções
+diferentes sobre a volatilidade diária de um ativo. Para isso, definiram
+a volatilidade percebida pelo investidor como a distribuição dos
+desvios-padrão dos retornos diários calculados de preços intradiários
+coletados aleatoriamente. Os autores encontraram que esta distribuição
+tem uma alto grau de dispersão, o que significa que diferentes
+investidores podem não compartilhar a mesma opinião a respeito da
+variabilidade do mesmo ativo. Entretanto, segundo Vicente et al. (2014)
+a volatilidade de preços de fechamento é geralente menor que a mediana
+da volatilidade percebida pelo investidor, enquanto a volatilidade de
+preço de abertura é maior. Seus resultados indicaram que as
+volatilidades usando amostras diárias tradicionais de retornos diários
+podem não ser bons insumos de modelos financeiros, já que, conforme os
+autores, eles podem não capturar adequadamente o risco em que os
+investidores são expostos.
+
+Ziegelmann, Borges e Caldeira (2014) exploraram diferentes estimadores
+de matriz de covariância, tanto a condicional quanto a incondicional,
+obtidas por dados intradiários. Tais medidas foram usadas para obter um
+portfólio de variância mínima. Os dados foram coletados de forma
+sincronizada e não sincronizada. Para fins de comparação os autores
+também usaram dados diários. Em seu trabalho também avaliaram as
+performances fora da amostra dos índices obtidos de um portfólio de 30
+ações comercializadas na BMF\&BOVESPA. Seus resultados mostraram que o
+estimador da matriz de variância condicional dos retornos usando o
+modelo escalar vt-VECH baseado em dados de alta frequência leva a
+melhoras substanciais de estimação, reduzindo o risco de portfólio,
+aumentando o retorno médio ajustado pelo risco e reduzindo o
+\emph{turnover} financeiro.
+
+Araujo e Montini (2015) proporam uma combinação da estimação de
+volatilidade dos modelos HAR-RV e MIDAS-RV para responder a seguinte
+questão: o tomador de decisão deveria selecionar a melhor projeção ou
+projetar o futuro por meio da combinação de múltiplas projeções? Seus
+resultados mostraram que o modelo HAR-RV apresentou melhor performance
+para a amostra de dados utilizada. Ao comparar as projeções individuais
+e métodos de combinação, a combinação de pesos iguais apresentou melhor
+performance.
+
+Percebe-se na literatura consultada, que os estudos que têm como onjeto
+o mercado de ações são em sua maioria bastante técnicos e preocupados em
+testar diversos métodos e modelos de estimação. A principal preocupação
+deste tipo de pesquisa é obter o mehor ajuste de modelo e a melhor
+previsão possível, usando os diversos métosos dispostos na literatura
+para comparar seus restultados. Outra questão de destque é que na
+literatura empírica sobre mercado de ações, o discussão dobre a
+peridiocidade dos dados, principalmente de dados intradiários é bastante
+difundida e objeto recorrente de análise. Já os estudos sobre preços e
+retorno de commodities possuem uma característica um pouco diferente.
+
+\subsection{\texorpdfstring{Estudos empíricos sobre volatilidade para
+\emph{commodities}.}{Estudos empíricos sobre volatilidade para commodities.}}\label{estudos-empiricos-sobre-volatilidade-para-commodities.}
+
+Devido à forma de obtnção dos dados, os estudos que tratam a
+volatilidade doretorno de \emph{commodities} feitos no Brasil usam dados
+geralmente semanais ou mensais. Estes estudos possuem preocupação
+principal em estudar a persistência de choques, assimetria da
+volatilidade eo efeito alavancagem. Como método, nos estudos que têm
+como objeto retornos de \emph{commodities} é comum encontrar modelos da
+família ARCH, sendo que não foram encontrados outros tipos de modelos
+como HAR-RV e MIDAS-RV na literatura consultada.
+
+Silva et al. (2005) examinaram o processo de volatilidade dos retornos
+do café e da soja no Brasil usando dados mensais. Seus resultados
+segurem fortes sinais de persistência e assimetria na volatilidade de
+ambas as séries. Além disso, afirmam que seus resultados indicam que a
+implementação de políticas que criem e facilitem o acesso e estimulem a
+utilização de instrumentos de \emph{hedging} baseados no mercado podem
+ser estratégias adequadas para tais setores lidarem com a persistência
+de choques e volatilidade pronunciadas para os retornos destas
+\emph{commodities}.
+
+Lima, Góis e Ulises (2007) modelaram a previsão com diferenciação
+inteira e fracionária, utilizando dados de preços futuros de
+\emph{commodities} agrícolas. Os autores comparam as estimações de
+modelos ARMA e ARIMA com os resultados obtidos pelo modelo ARFIMA. Para
+avaliar o poder de previsão, os autores usaram o critério de erro
+quadrado médio e também estimaram o termo de diferenciação \emph{d} para
+examinar as características de longo prazo das séries. Seus resultados
+indicaram que todas as séries de retornos de preços futuros são
+estacionárias. Encontraram ainda que os modelos ARFIMA mostraram melhor
+poder de previsão.
+
+Silva (2008) analisou a volatilidade do retorno dos preços de boi gordo
+no Estado de São Paulo. O autor examinou a persistência dos choques e
+assimetrias na sua volatilidade usando os modelos ARCH e GARCH. Seus
+resultados mostraram reações de persistência e assimetria na
+volatilidade em que choques negativos e positivos têm impactos
+diferentes sobre a volatilidade dos retornos dos preços do boi gordo.
+Seus resultados foram corroborados pelos modelos EGARCH e TGARCH.
+
+Teixeira et al. (2008) usou a família de modelos ARCH para analisar o
+comportamento do retorno do cacau, do boi gordo e do café. Seus
+resultados indicaram fortes sinais de persistÊncia para as três
+\emph{commodities} e que os choques levam um longo tempo para
+dissipar-se. Os autores ainda constataram que choques positivos e
+negativos têm efeitos diferentes sobre a volatilidade, então os mercados
+são assimétricos, e que o boi gordo e o cacau sofrem o efeito
+alavancagem.
+
+Pereira et al. (2010) analisaram os retornos da soja, café e boi gordo.
+Para isso usaram modelos ARCH e calcularam o \emph{Value-at-Risk (VaR)}.
+Seus resultados indicaram que a variabilidade das três
+\emph{commodities} possui dependência condicional e que exite grande
+persistência na resposta aos choques na variância. Observaram também que
+os retornos do café e soja tiveram assimetrias nos choques positivos e
+negativos, embora não encontraram o efeito alavancagem. As medidas dos
+\emph{VaR} encontradas pelos autores mostraram maior potencial de perda
+para os produtores de café, seguidos pelos da soja e de boi gordo.
+
+Bodra (2012) usou um modelo de volatilidade estocástica com saltos para
+estudar a dinâmica de preços do milho e da soja. Seus resultados
+mostraram que um modelo de volatilidade estocástica pode ser bem
+ajustado ao mercado de \emph{commodities} agrícolas e que o processo de
+\emph{jump dffusion} pode representar bem os saltos deste mercado. Os
+autores usaram um modelo de Monte Carlo de mínimos quadrados (LSM) para
+a precificação das opções que foram utilizadas para formular uma
+estratégia de \emph{hedge} de uma posição física de milho e de soja,
+sendo que a eficiência dessa estratégia foi comparada com estratégias já
+disponíveis no mercado.
+
+Freitas et al. (2015) analisaram a persistência, a alavancagem e a
+variância condicional dos retornos de commodities agropecuárias, usando
+o modelo APARCH. As séries estudadas pelos autores foram, o açúcar, a
+soja, o milho, o café, o algodão, o arroz, o trigo, o frango, o boi
+gordo e o bezerro. Os autores encontraram que não ocorreu alavancagem
+nas séries e que a variância condicional foi assimétrica nos retornos do
+etanol, do café, do algodão, do boi gordo e do bezerro. Acharam também
+que as volatilidades mais intensas, embora com convergência à sua média
+histórica, ocorreram nos retornos do açúcar, da soja, do café, do trigo,
+do frango e do boi gordo. As maiores volatilidades incondicionais
+encontradas pelos autores foram dos retornos do etanol, do frango, do
+algodão, da soja e do açúcar.
+
+Conforme identificado na revisão de literatura, os trabalhos sobre a
+mercado de derivativos de \emph{commodities} usam predominantemente
+dados semanais e mensais, sendo que dados de alta frequência com
+peridiocidade intradiária não ofi feito até então para a economia
+brasileira. Conforme Moreira e Lemgruber (2004) a utilização de dados
+intradiários melhor o ajuste do modelo e a previsibilidade da série
+estudada, já que estes dados incorporam mais informações sobre a
+microestrutura do mercado financeiro. E segundo Vicente et al. (2014) os
+dados diários e consequentemente dados semanais e mensais, não capturam
+todo o risco e incerteza que o agente econômico está expostos ao lidar
+com instrumentos financeiros. Com isso, justifica-se um estudo que use
+dados com informações intradiárias para estudar o mercado de
+\emph{commodities}, sendo que assim contribuições sobre a existência ou
+não de alavancagem financeira, pode ser feitas, já qe os estudos feitos
+até então, não utilizaram esta peridiocidade dos dados.
+
+\pagebreak
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{Resumo dos estudos de volatilidade no mercado financeiro
+brasileiro.}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Autores\strut
+\end{minipage} & \begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Objeto\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+Periodicidade\strut
+\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+Método\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Autores\strut
+\end{minipage} & \begin{minipage}[b]{0.17\columnwidth}\raggedright\strut
+Objeto\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+Periodicidade\strut
+\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\raggedright\strut
+Método\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Moreira e Lemgruber (2004)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+IBOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+15 min e 1 dia\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+GARCH, EGARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Carvalho et al. (2006)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Top 5 empresas IBOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+15 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+EWMA, GARCH, EGARCH, GJR-GARCH, log retorno padronizado\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Ceretta et al. (2011)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+IBOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+15 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+APARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Junior e Pereira (2013)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Top 5 empresas IBOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+5, 15 e 30 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+HAR-RV e MIDAS-RV\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Morais et al. (2014)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Top 2 BMF\&BOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+5 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+GARCH, EGARCH, CGARCH e TGARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Santos e Ziegelmann (2014)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+IBOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+15 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+HAR, MIDAS e combinação HAR-MIDAS\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Vicente et al. (2014)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+84 empresas da BMF\&BOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+Amostragem aleatória de preços em um intervalo\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Análise exploratória da Volatilidade Realizada\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Ziegelmann, Borges e Caldeira (2014)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Índice de 30 ações BMF\&BOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+5 a 120 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Covariância realizada, vt\_VECH escalar e MRK\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Araujo e Montini (2015)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+IBOVESPA\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+5 min\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+HAR\_RV, MIDAS-RV e combinação HAR-MIDAS\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Silva et al. (2005)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+café e soja\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+mensal\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+GARCH, EGARCH e TARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Lima, Góis e Ulises (2007)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Açúcar, café, boi gordo, milho e soja\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+???\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+ARMA, ARIMA e ARFIMA; Arch e GARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Silva (2008)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+boi gordo\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+diária\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+ARCH, GARCH, EGARCH e TGARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Teixeira et al. (2008)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+cacau, café e boi gordo\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+diária\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+GARCH, EGARCH, TARCH\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Pereira et al. (2010)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Soja, café e boi gordo\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+semanal\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+EGARCH, TGARCH e GARCH-M\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Bodra (2012)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+milho e soja\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+mensal\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+Volatilidade estocástica e saltos\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Freitas et al. (2015)\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright\strut
+Açúcar, soja, milho, café, algodão, arroz, trigo, frango, boi gordo e
+bezerro\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+semanal\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright\strut
+APARCH\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Fonte: Elaboração dos autores
+
+\pagebreak
+
+\section*{Referências}\label{referencias}
+\addcontentsline{toc}{section}{Referências}
+
+\setlength{\parindent}{0in}
+
+\hypertarget{refs}{}
+\hypertarget{ref-araujo_estimacao_2015}{}
+ARAUJO, A. C. DE; MONTINI, A. DE Á. Estimação da volatilidade percebida
+futura por meio de combinação de projeções. \textbf{Anais}, 2015.
+Disponível em:
+\textless{}\url{http://bdpi.usp.br/single.php?_id=002723087}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-bodra_modelo_2012}{}
+BODRA, R. A. Modelo de volatilidade estocástica com saltos aplicado a
+commodities agrícolas., 2012. Disponível em:
+\textless{}\url{http://bibliotecadigital.fgv.br/dspace/handle/10438/10374}\textgreater{}.
+Acesso em: 29/12/2016.
+
+\hypertarget{ref-carvalho_modeling_2006}{}
+CARVALHO, M. C.; FREIRE, M. A. S.; MEDEIROS, M. C.; SOUZA, L. R.
+Modeling and Forecasting the Volatility of Brazilian Asset Returns: a
+Realized Variance Approach. \textbf{Brazilian Review of Finance}, v. 4,
+n. 1, p. 55--77, 2006. Disponível em:
+\textless{}\url{http://bibliotecadigital.fgv.br/ojs/index.php/rbfin/article/view/1155}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-ceretta_intraday_2011}{}
+CERETTA, P. S.; BARBA, F. G. DE; VIEIRA, K. M.; CASARIN, F. Intraday
+volatility forecasting: analysis of alternative distributions.
+\textbf{Brazilian Review of Finance}, v. 9, n. 2, p. 209--226, 2011.
+Disponível em:
+\textless{}\url{http://bibliotecadigital.fgv.br/ojs/index.php/rbfin/article/view/2586}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-freitas_volatilidade_2015}{}
+FREITAS, C. A. DE; SÁFADI, T.; FREITAS, C. A. DE; SÁFADI, T.
+Volatilidade dos Retornos de Commodities Agropecuárias Brasileiras: um
+teste utilizando o modelo APARCH. \textbf{Revista de Economia e
+Sociologia Rural}, v. 53, n. 2, p. 211--228, 2015. Disponível em:
+\textless{}\url{http://www.scielo.br/scielo.php?script=sci_abstract\&pid=S0103-20032015000200211\&lng=en\&nrm=iso\&tlng=pt}\textgreater{}.
+Acesso em: 29/12/2016.
+
+\hypertarget{ref-junior_modeling_2013}{}
+JUNIOR, M. V. W.; PEREIRA, P. L. V. Modeling and Forecasting of Realized
+Volatility: Evidence from Brazil. \textbf{Brazilian Review of
+Econometrics}, v. 31, n. 2, p. 315--337, 2013. Disponível em:
+\textless{}\url{http://bibliotecadigital.fgv.br/ojs/index.php/bre/article/view/4056}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-lima_previsao_2007}{}
+LIMA, R. C.; GÓIS, M. R.; ULISES, C. Previsão de preços futuros de
+Commodities agrícolas com diferenciações inteira e fracionária, e erros
+heteroscedásticos. \textbf{Revista de Economia e Sociologia Rural}, v.
+45, n. 3, p. 621--644, 2007. Disponível em:
+\textless{}\url{http://www.scielo.br/scielo.php?script=sci_abstract\&pid=S0103-20032007000300004\&lng=en\&nrm=iso\&tlng=es}\textgreater{}.
+Acesso em: 29/12/2016.
+
+\hypertarget{ref-morais_estimating_2014}{}
+MORAIS, O.; VAL, F. DE F.; PINTO, A. C. F.; KL, M. C.; MACELLY.
+Estimating the Volatility of Brazilian Equities using Garch-Type Models
+and High-Frequency Volatility Measures. \textbf{Global Journal of
+Management And Business Research}, v. 14, n. 5, 2014. Disponível em:
+\textless{}\url{http://journalofbusiness.org/index.php/GJMBR/article/view/1520}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-moreira_o_2004}{}
+MOREIRA, J. M. DE S.; LEMGRUBER, E. F. O uso de dados de alta freqüência
+na estimação da volatilidade e do valor em risco para o IBOVESPA.
+\textbf{Revista Brasileira de Economia}, v. 58, n. 1, p. 100--120, 2004.
+Disponível em:
+\textless{}\url{http://www.scielo.br/scielo.php?script=sci_abstract\&pid=S0034-71402004000100005\&lng=en\&nrm=iso\&tlng=pt}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-pereira_volatilidade_2010}{}
+PEREIRA, V. DA F.; LIMA, J. E. DE; BRAGA, M. J.; MENDONÇA, T. G. DE.
+Volatilidade condicional dos retornos de commodities agropecuárias
+brasileiras seguidos pela soja e pelo boi gordo. \textbf{Revista de
+Economia}, v. 36, n. 3, 2010. Disponível em:
+\textless{}\url{http://revistas.ufpr.br/economia/article/view/14058}\textgreater{}.
+Acesso em: 29/12/2016.
+
+\hypertarget{ref-santos_volatility_2014}{}
+SANTOS, D. G.; ZIEGELMANN, F. A. Volatility Forecasting via MIDAS, HAR
+and their Combination: An Empirical Comparative Study for IBOVESPA.
+\textbf{Journal of Forecasting}, v. 33, n. 4, p. 284--299, 2014.
+Disponível em:
+\textless{}\url{http://onlinelibrary.wiley.com/doi/10.1002/for.2287/abstract}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-silva_alise_2008}{}
+SILVA, C. A. G. DA. \textbf{ANÁLISE DA VOLATILIDADE DOS PREÇOS DE BOI
+GORDO NO ESTADO DE SÃO PAULO: UMA APLICAÇÃO DOS MODELOS GARCH}. 46th
+Congress, July 20-23, 2008, Rio Branco, Acre, Brasil, Sociedade
+Brasileira de Economia, Administracao e Sociologia Rural (SOBER), 2008.
+
+\hypertarget{ref-silva_uma_2005}{}
+SILVA, W. S. DA; SÁFADI, T.; JÚNIOR, C.; DE, L. G. Uma análise empírica
+da volatilidade do retorno de commodities agrícolas utilizando modelos
+ARCH: os casos do café e da soja. \textbf{Revista de Economia e
+Sociologia Rural}, v. 43, n. 1, p. 119--134, 2005. Disponível em:
+\textless{}\url{http://www.scielo.br/scielo.php?script=sci_abstract\&pid=S0103-20032005000100007\&lng=en\&nrm=iso\&tlng=pt}\textgreater{}.
+Acesso em: 29/12/2016.
+
+\hypertarget{ref-teixeira_dinamica_2008}{}
+TEIXEIRA, G. DA S.; MAIA, S. F.; FIGUEIREDO, N. M.; PEREIRA, E. S.;
+PINTO, P. A. L. D. A. \textbf{Dinâmica Da Volatilidade Do Retorno Das
+Principais Commodities Brasileiras: Uma Abordagem Dos Modelos Arch}.
+46th Congress, July 20-23, 2008, Rio Branco, Acre, Brasil, Sociedade
+Brasileira de Economia, Administracao e Sociologia Rural (SOBER), 2008.
+
+\hypertarget{ref-vicente_assessing_2014}{}
+VICENTE, J. V. M.; ARAUJO, G. S.; CASTRO, P. B. F. DE; TAVARES, F. N.
+Assessing Day-to-Day Volatility: Does the Trading Time Matter?
+\textbf{Brazilian Review of Finance}, v. 12, n. 1, p. 41--66, 2014.
+Disponível em:
+\textless{}\url{http://bibliotecadigital.fgv.br/ojs/index.php/rbfin/article/view/13483}\textgreater{}.
+Acesso em: 12/12/2016.
+
+\hypertarget{ref-ziegelmann_selection_2014}{}
+ZIEGELMANN, F. A.; BORGES, B.; CALDEIRA, J. F. Selection of Minimum
+Variance Portfolio Using Intraday Data: An Empirical Comparison Among
+Different Realized Measures for BM\&FBovespa Data. \textbf{Brazilian
+Review of Econometrics}, v. 35, n. 1, p. 23--46, 2014. Disponível em:
+\textless{}\url{http://bibliotecadigital.fgv.br/ojs/index.php/bre/article/view/21453}\textgreater{}.
+Acesso em: 12/12/2016.
+
+
+\end{document}
