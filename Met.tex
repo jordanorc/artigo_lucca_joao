@@ -1,0 +1,116 @@
+\documentclass[a4paper,12pt] {article}
+\usepackage{times}
+\usepackage{geometry}
+\usepackage[english, brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage[T1]{fontenc}
+\usepackage{nomencl}
+\usepackage{graphicx}
+\graphicspath{{figuras/}}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+
+\begin{document}
+
+\section{Metodologia}
+
+ Muitas séries de preços  possuem duas características importantes que devem ser consideradas em estudos estatísticos: (i) movimentos comuns entre séries de preços ao longo do tempo, (ii) preços altamente voláteis com a volatilidade variando com o tempo. Considerando estas propriedades  é necessário cuidado para especificar e estimar a média e variância das séries.  Desenvolvido por Herwartz e Lütkepohl (2011) e  usado por Cabrera e Schulz (2015), neste trabalho usamos um estimador de mínimo quadrados generalizados factível para  estimar conjuntamente a média condicional, por meio de um modelo de correção de erros, e a  volatilidade, através de um modelo heterocedástico multivariado.
+ 
+ 
+ \subsection{Modelo de Correção de Erros} 
+ 
+ 
+ Séries de preços que possuem movimentos comuns ao longo do tempo são ditas cointegradas. Engle e Granger (1987) introduziu o conceito para séries não estacionárias e integradas de mesma ordem. Posteriormente  Campbell e Perron (1991) generalizou a definição permitindo cointegração de séries com diferentes ordens. A  cointegração de séries temporais indica uma relação de causalidade de longo prazo, porém não indica a direção dessa causalidade temporal entre as séries. Tal direção de causalidade pode ser determinada com um vetor de correção de erros (VECM) que acomoda  tanto a dinâmica de curto como a dinâmica de equilíbrio de longo prazo na sua estrutura.
+ 
+  \begin{equation}
+  \Delta p_{t} =c+\Pi p_{t-1} + \Gamma \Delta p_{t-1}+u_t
+  \end{equation}
+  \begin{equation}
+ \Delta p_{t} = c+\alpha \beta ^T  p_{t-1} + \Gamma \Delta p_{t-1}+u_t
+\end{equation}
+ 
+  onde $\Delta$ é um operador de primeira diferença, tal que $\Delta p_{t} = p_t-p_{t - 1}$ denota a mudança de preços $p$ de tempo $t-1$ para tempo $t$ (variações de preço de curto prazo), $c$ é uma constante, $\alpha$ dá a velocidade de ajuste com a qual os preços retornam ao equilíbrio de longo prazo, $\Gamma$ mede as reações a mudanças de preços de curto prazo e $u_t$ é um termo de erro que capta potenciais efeitos da volatilidade.
+  
+  
+  \subsection{Modelo GARCH Multivariado} 
+ 
+ 
+ Uma commoditie pode  sofrer de momentos de alta e baixa instabilidade de preços ao longo do tempo. Além disso, a instabilidade de preços de uma commoditie pode levar a uma instabilidade de preços de outra commoditie. Em outras palavras, as volatilidades de algumas séries podem estar inter relacionadas.  Para estudar estas relações  e possíveis transmissões  de volatilidade entre as séries ao longo do tempo usamos um Modelo de Heterocedásticidade Condicional Autorregressiva Multivariado (MGARCH). 
+ Denota-se um vetor $n$ variado de $T$ observações , no qual $E(u_t|F_{t-1})$ é gerado pelo passado até $F_{t-1}$. Assume-se que $u_t$ é um vetor dos resíduos do VECM. O modelo Multivariado Garch é definido como:
+ 
+   \begin{equation}
+   u_t=H_{t}^{1/2} z_t,  z_t \sim iid(0,I_n), t=1,2,\dots,T,
+   \end{equation}
+ 
+  onde $H_t$ é uma matriz positiva definida tal que $H_{t}^{1/2}(H_{t}^{1/2})^T=H_t$ e $H_t=Var(u_t|F_{t-1})$ é  matriz de covariância de $u_t$ sobre campo sigma $F_{t-1}$. A variância não condicional é assumida constante ao longo do tempo. Muitas especificações da matriz de covariância condicional são propostas na literatura. Seguindo Cabrera e Schulz (2015) utilizamos o modelo de correção condicional constante (CCC) e o   modelo de correlação condicional dinâmica (DCC). Os modelos produzem resultados facilmente interpretáveis e mantêm o número de parâmetros a ser estimado relativamente baixo. O interessante de modelos de correlação condicional é que a matriz $H_t$ pode ser decomposta em variâncias condicionais e uma matriz de correlação condicional, no qual pode ser especificada separadamente. Definimos o modelo como:
+  
+    \begin{equation}
+    H_{t}=D_t R_t D_t
+    \end{equation}
+  
+     \begin{equation}
+     D_{t}=diag(h_{1 1t}^{1/2},\dots,h_{n nt}^{1/2})
+     \end{equation}
+ 
+  \begin{equation}
+  R_{t}=(I_n \odot Q_t)^{-1/2} Q_t(I_n \odot Q_t)^{-1/2}
+  \end{equation}
+ 
+   \begin{equation}
+   Q_{t}=(1-a-b) \bar{Q} + a \xi_{t-1} \xi_{t-1}^T+bQ_{t-1}
+   \end{equation}
+   
+ Em que $\odot$ denota o produto de Hadamard, $\xi_{it} =  \frac{u_{it}}{\sqrt{h_{it}}}$  são os resíduos $u_t$ padronizados  por seus desvios padrões condicionais, $\bar{Q}$ é a matriz de covariância incondicional de $\xi_{t}$ e $a$ e $b$ são parâmetros escalares não-negativos que satisfazem $a + b<1$. $D_t$ é matriz diagonal variante no tempo dos desvios padrões dos processos GARCH univariados. O modelo correlação condicional constante é um caso especial do modelo DCC, onde as matrizes $D$ e $R$ são constantes.
+ O modelo de correlação condicional dinâmica pode ser realizado em duas etapas. Primeiramente as variâncias condicionais são estimadas usando-se uma especificação GARCH univariada. Na segunda etapa, os resíduos padronizados são usados para estimar os parâmetros das correlações dinâmicas.
+ Assumindo que $z_t$ in Eq. (3) seja normalmente distribuídas, é possível obter estimativas consistentes por meio de estimador de quasi-máxima verossimilhança em dois estágios.  
+ 	
+ \subsection{Estimação Conjunta dos Parâmetros de Cointegração e GARCH} 
+ 
+
+	A abordagem mais conhecida para estimar parâmetros de cointegração  foi desenvolvido por Johansen (1995). No entanto, este procedimento é ineficiente na presença de heterocedasticidade condicional generalizada, como mostrado por Seo (2007). Para superar a problema Seo (2007) propôs um procedimento de máximo verossimilhança que leva em consideração a estrutura GARCH para os resíduos. Mais este procedimento sofre grande sensibilidade quando ocorre má especificação do  processo GARCH e, além disso, possui fracas propriedades em pequenas amostras.  O estimador de Mínimos Quadrados Generalizados Factível proposto por Herwartz e Lütkepohl (2011) aborda todos esses inconvenientes. Como em  Cabrera e Schulz (2015) adotamos a última abordagem. Consiste em duas etapas: (i) estima-se um VECM por Mínimos Quadrados Ordinários e salva os resíduos  para,  posteriormente, utilizar na estimação do MGARCH por Máximo Verossimilhança, (ii) as estimativas de Mínimos Quadrados Generalizados Factível são derivadas usando a matriz de covariância estimada a partir da primeira etapa.
+	
+	
+	 \subsection{Modelo Multivariável de Volatilidade Multiplicativa}	
+	
+	A hipótese central dos modelos de MGARCH é que a matriz de covariância incondicional é constante ao longo do tempo. Porém, mudanças no ambiente de mercado  podem fazer com que a matriz de covariância incondicional mude ao longo do tempo. Para permitir tais mudanças, como em Cabrera (2016) e Serra (2015),  usamos  um modelo de volatilidade multiplicativo desenvolvido por Hafner e Linton (2010), que permite mudanças suaves na matriz de covariância incondicional através de uma componente multiplicativo. A ideia do modelo de volatilidade multiplicativa é decompor a matriz de covariância condicional de $u_t$ em um componente que pode mudar suavemente ao longo do tempo (componente de longo prazo) e um componente  de curto prazo que captura variações em torno do nível que varia levemente. O componente de longo prazo é modelado como uma função suave em relação ao tempo e corresponde à covariância incondicional. O componente de curto prazo captura a dinâmica potencial de processos GARCH multivariados. Segue o modelo:
+	
+	\begin{equation}
+	H_t=\sum (t/T)^{1/2} G_t^ {1/2} (G_t^{1/2})^T [\sum (t/T)^{1/2}]^T=\sum (t/T)^{1/2} G_t[\sum(t/T)^{1/2}]^T
+	\end{equation}
+	
+	Ao assumir $E (G_t) = I_n$ para identificação, segue-se que
+ 	
+ 	\begin{equation}
+ 	Var(u_t)= E(H_t)= \sum (t/T)^{1/2} E(G_t)[\sum (t/T)^{1/2}]^T=\sum (t/T)
+ 	\end{equation}
+ 	
+ 	onde $\sum (t/T)=\sum{t}$ é matriz de covariância não condicional de $u_t$. Deixe $\varepsilon=\sum (t/T)^{-1/2}u_t$  o vetor de resíduos padronizado por sua covariância incondicional. Segue-se que $Var (\varepsilon_t) = I_n$ e $Var (\varepsilon_t | F_{t - 1}) = G_t$. Portanto, $\varepsilon_t$ é um vetor com uma matriz de covariância incondicional constante e com $G_t$ como sua matriz de covariância condicional. No caso dos resíduos padronizados $\varepsilon_t$ mostrarem efeitos ARCH, eles podem ser modelados usando um modelo GARCH multivariável como descrito anteriormente. Devido à padronização, eles seguem uma hipótese de uma matriz de covariância incondicional constante. De acordo com Hafner e Linton (2010), a matriz de covariância incondicional $\sum (t/T)$ pode ser estimada eficientemente pelo Nadaraya-Watson não paramétrico:
+ 	
+ 	 	\begin{equation}
+ 	 	\hat{\sum}(\tau)=\frac{\sum_{t=1}^{T} K_h (\tau-\frac{t}{T})u_t u_t^T}{\sum_{t=1}^{T}K_h(\tau-\frac{t}{T})},
+ 	 	\end{equation}
+ 	 	
+ 	 	
+ 	 	o $ \tau = \frac{1}{T}, \frac{2}{T}, \dots, 1, K_h (.)$ é uma função do kernel e $h$ é um parâmetro de suavização positivo que separa o componente de longo e curto prazo da matriz de covariância. Para escolher  o parâmetro de suavização utiliza-se um critério de validação cruzada de verossimilhança  
+ 	 	como proposto por (Yin et al., 2010):
+ 	 	
+ 	 	\begin{equation}
+ 	 	CV(h)= \frac{1}{n} \sum_{1}^{T}    [u_t^T \sum_{(-t)}^{-1} (t/T)u_t] + log[|\sum_{-t} (t/T)|],
+ 	 	\end{equation}
+ 	 	
+ 	 	onde $\sum_{-t}$ é o estimador  matriz de covariância incondicional. Ou seja, a Eq. (10) é estimada com a t-ésima observação deixada de fora. O parâmetro de suavização ótimo é determinado minimizando a Eq. (11) e por simplicidade um kernel gaussiano é escolhido. 
+
+ 
+ \end{document}
+ 
+ 
+ 
+ 
+ 
+ 

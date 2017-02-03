@@ -48,7 +48,7 @@ libraries = c("car",
 
 ## Dados e Análise Descritiva.
 
-Os dados são de peridiocidade diária, são disponibilizados pela [CEPEA/EXALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de 25/01/2010  a 20/01/2017, porém ao se deflacionarem os dados a série foi reduzida para 29/12/2016 pois não foram encontrados o índice de preço para o no de 2017. Os dados para o etanol correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM&FBovespa Posto Paulínia (SP). Para o açúcar os dados são o Indicador Açúcar Criatal CEPEA/EXALQ - São Paulo por saca de 50 quilos. Para o soja os dados são o Indicador Soja CEPEA/EXALQ - Paraná por saca de 60 quilos. Ocorreram 15 valores faltante para o soja durante o período, estes dados foram interpolados pelo método *spline* conforme indicado por @zeileis_zoo:_2005.
+Os dados são de peridiocidade diária, são disponibilizados pela [CEPEA/ESALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de 25/01/2010  a 20/01/2017, porém ao se deflacionarem os dados a série foi reduzida para 29/12/2016 pois não foram encontrados o índice de preço para o ano de 2017. Os dados para o etanol correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM&FBovespa Posto Paulínia (SP). Para o açúcar os dados são o Indicador Açúcar Criatal CEPEA/ESALQ - São Paulo por saca de 50 quilos. Para o soja os dados são o Indicador Soja CEPEA/ESALQ - Paraná por saca de 60 quilos. Ocorreram 15 valores faltante para o soja durante o período, estes dados foram interpolados pelo método *spline* conforme indicado por @zeileis_zoo:_2005.
 
 ```{r}
 library(dplyr)
@@ -283,7 +283,7 @@ print(c(shapiro.test(ldif_cepea[-1, 2])$p.value,
 |Shapiro-Wilk   |<0,01  |<0,01  |<0,01  |
 Table:  Distribuição das variáveis.
 
-Na  Tabela 2 são apresentados a média, desvio padrão e correlações do nível de preços do etanol, açúcar e soja. O preço do açúcar é positovamente correlacionado com o preço do etanol, o que era de se esperar pois os dois produtos são substitutos na perspectiva do produtor. Por exemplo, caso o preço do etanol esteja elevado e apresente maior lucratividade em relação ao açúcar, o produtor tende a aumentar a oferta de etanol e reduzir a oferta de açúcar, o que por sua vez, aumenta o preço do açúcar. A correlação entre soja e etanol é positiva. Esta tendência explica os co-movimentos dos preços das *commodities* no mercado financeiro internacional. Quanto à correlação negativa entre o soja e o açúcar, a análise é mais indireta em que  tal correlação pode ocorrer devido a características espculativas inerentes do mercado financeiro.
+Na  Tabela 2 são apresentados a média, desvio padrão e correlações do nível de preços do etanol, açúcar e soja. O preço do açúcar é positivamente correlacionado com o preço do etanol, o que era de se esperar pois os dois produtos são substitutos na perspectiva do produtor. Por exemplo, caso o preço do etanol esteja elevado e apresente maior lucratividade em relação ao açúcar, o produtor tende a aumentar a oferta de etanol e reduzir a oferta de açúcar, o que por sua vez, aumenta o preço do açúcar. A correlação entre soja e etanol é positiva. Esta tendência explica os co-movimentos dos preços das *commodities* no mercado financeiro internacional. Quanto à correlação negativa entre o soja e o açúcar, a análise é mais indireta em que  tal correlação pode ocorrer devido a características especulativas inerentes do mercado financeiro.
 
  As outras estatísticas da Tabela 2 se referem à volatilidade, $v_{i,t}$. As três séries apresentam assimetria à esquerda em sua distribuição. As volatilidades de soja e  etanol apresentam elevado grau de leptocurtose (12,33 e 12,85) enquanto o nível de leptocurtose do açúcar (4,29) é bem inferior às outras duas *commodities*. Para os testes foram reportados o valor-p. $Q$(20) e $Q^2$(20) são os testes de Ljung-Box para $v_{i,t}$ e $v_{i,t}^2$ respectivamente com 20 defasagens em ambos os testes, para mais detalhes sobre o teste consulte @mcleod_diagnostic_1983.  Os teste $Q$ possui hipótese nula de ausência de autocorrelação:
  
@@ -291,13 +291,13 @@ Na  Tabela 2 são apresentados a média, desvio padrão e correlações do níve
  H_0: \rho_1=\rho_2=\ldots=\rho_m=0
  \end{equation}
  
-contra a ipótese alternativa de que pelo menos um coeficiente de autocorrelação é diferente de zero:
+contra a hipótese alternativa de que pelo menos um coeficiente de autocorrelação é diferente de zero:
 
 \begin{equation}
 H_a:\exists \;\rho_i\neq 0, \quad i =1,\ldots,m
 \end{equation}
 
-Conforme @tsay_introduction_2012, a regra de decisão é rejeitar a hipótese nula caso o valor-p seja inferior ao nível de significância desejado. Os testes tanto para a $v_{it}$ quanto para $v_{it}^2$ possuem valor-p inferiores a 1\% o que nos leva a rejeitar a hipótese nula de ausência de autocorrelação para as três séries e, com isso, as volatilidades não são independentemente distribuídas. Arch é o teste de efeitos ARCH de @engle_autoregressive_1982 que é um teste de multiplicador de Lagrange para heterocedasticidade condicional. Este teste é equivalente  à estatística $F$  para testarmod se $\alpha_i=0$, $i=1,\ldots,m$, na regressão linear
+Conforme @tsay_introduction_2012, a regra de decisão é rejeitar a hipótese nula caso o valor-p seja inferior ao nível de significância desejado. Os testes tanto para a $v_{it}$ quanto para $v_{it}^2$ possuem valor-p inferiores a 1\% o que nos leva a rejeitar a hipótese nula de ausência de autocorrelação para as três séries e, com isso, as volatilidades não são independentemente distribuídas. Arch é o teste de efeitos ARCH de @engle_autoregressive_1982 que é um teste de multiplicador de Lagrange para heterocedasticidade condicional. Este teste é equivalente  à estatística $F$  para testar  se $\alpha_i=0$, $i=1,\ldots,m$, na regressão linear
 
 \begin{equation}
 a_t^2=\alpha_0+\alpha_1a_{t-1}^2+\ldots+\alpha_ma_{t-m}^2+\varepsilon_t,\quad t=m+1,\ldots,T.
@@ -315,13 +315,13 @@ contra a hipótese alternativa
 H_a:\exists \; \alpha_i\neq 0, \quad i=1,\ldots,m.
 \end{equation}
 
-Maiores detalhes sobre o cálculo destas estatísticas também podem ser encontrados em @tsay_introduction_2012. A regra de decião é rejeitar a hipótese nula se o valor-p for menor que o nível de significânci desejado.Portanto, no teste de efeito ARCH rejeitou-se a hipótese nula de ausência de heterocedasticidade condicional para as três séries a um nível de significância de 1%. Com isso inferimos que existe heterocedasticidade condicional nas séries estudadas.
+Maiores detalhes sobre o cálculo destas estatísticas também podem ser encontrados em @tsay_introduction_2012. A regra de decisão é rejeitar a hipótese nula se o valor-p for menor que o nível de significância desejado.Portanto, no teste de efeito ARCH rejeitou-se a hipótese nula de ausência de heterocedasticidade condicional para as três séries a um nível de significância de 1%. Com isso inferimos que existe heterocedasticidade condicional nas séries estudadas.
 
 Para testar a normalidade dos dados realizou-se o teste Shapiro-Wilk, inicialmente desenvolvido por @shapiro_analysis_1965. Este teste infere se a amostra estudada veio de uma distribuição normal. Como os valores-p reportados na Tabela 2 são menores que o nível de significância de 1%, rejeita-se a hipótese nula de que os dados foram amostrados de uma distribuição normal. Até então todos as estatísticas estão em conformidade com a literatura de volatilidade no mercado financeiro, em que os dados apresentam leptocurtose, assimtetria à esquerda, heterocedasticidade condicional e não normalidade em sua distribuição. Alguns trabalhos recentes que identificaram estas características são, @lopez_cabrera_volatility_2016, @freitas_volatilidade_2015 e @araujo_estimacao_2015, para uma excelente revisão sobre o assunto, veja @serra_biofuel-related_2013.
 
 ## Testes de estacionariedade, raiz unitária e cointegração.
 
-Em seguida foram feitos os testes Dickey-Fuller aumentado (ADF, sigla em inglês), KPSS e Phillips-Perron  para identificar se as séries de preços possuem raiz unitária, no caso dos testes ADF e Phillips-Perron ou se as séries de preços são estacionárias, por meio do teste KPSS. A Tabela 3 mostra as estatísticas do teste KPSS e o valor tabela por nível de significância. Podemos ver nesta tabela que todas as estatísticas, independente da especificação do modelo, são maiores que os valores tabelasdos, portanto não rejeitamos a hipótese nula de estacionariedade. As tabelas 4 e 6 mostram os testes ADF e Phillips-Perron respectivamente. A diferença destes dois testes em relação ao teste KPSS, é que eles possuem hipótese nula de existência de raiz unitária. Conforme as duas tabelas 4 e 6, para qualquer epecificação do modelo não rejeitamos a hipótese nula de existência de raiz unitária nas séries estudadas. Uma vez que evidenciamos a existência de raiz unitária nas séries de preços, foram realizados os mesmos testes para as séries em primeira diferença, onde constatou-se que elas são integradas em primeira ordem. A partir disso podemos prosseguir para a identificação de cointegração e estimação do modelo devetor de correção de erros (VECM, sigla em inglês).
+Em seguida foram feitos os testes Dickey-Fuller aumentado (ADF, sigla em inglês), KPSS e Phillips-Perron  para identificar se as séries de preços possuem raiz unitária, no caso dos testes ADF e Phillips-Perron ou se as séries de preços são estacionárias, por meio do teste KPSS. A Tabela 3 mostra as estatísticas do teste KPSS e o valor tabela por nível de significância. Podemos ver nesta tabela que todas as estatísticas, independente da especificação do modelo, são maiores que os valores tabela, portanto não rejeitamos a hipótese nula de estacionariedade. As tabelas 4 e 6 mostram os testes ADF e Phillips-Perron respectivamente. A diferença destes dois testes em relação ao teste KPSS, é que eles possuem hipótese nula de existência de raiz unitária. Conforme as duas tabelas 4 e 6, para qualquer epecificação do modelo não rejeitamos a hipótese nula de existência de raiz unitária nas séries estudadas. Uma vez que evidenciamos a existência de raiz unitária nas séries de preços, foram realizados os mesmos testes para as séries em primeira diferença, onde constatou-se que elas são integradas em primeira ordem. A partir disso podemos prosseguir para a identificação de cointegração e estimação do modelo do vetor de correção de erros (VECM, sigla em inglês).
 
 
 
@@ -388,7 +388,7 @@ print(coint)
 Table: Teste do traço de Johansen
 
 
-Como se veerifica na Tabela 7, inicialmente rejeitou-se a hipótese nula de que o posto da matriz $\Pi$ seja zero, em seguida não se rejeitou a hipótese nula de que o posto seja igual a um. Logo, exite uma única relação de cointegração dada por:
+Como se verifica na Tabela 7, inicialmente rejeitou-se a hipótese nula de que o posto da matriz $\Pi$ seja zero, em seguida não se rejeitou a hipótese nula de que o posto seja igual a um. Logo, exite uma única relação de cointegração dada por:
 
 
 \begin{equation}\label{coint}
@@ -401,7 +401,7 @@ Agora, dado o vetor de cointegração, podemos estimar o modelo VECM para obterm
 ## Estimação do modelo de vetor de correção de erros.
 
 
-Foi estimado um modelo de vetor de correção de erros a partir do vetor de cointegração encontrado anteriormen. Tanto a relação de longo prazo, quanto a dinâmica de curto prazo são capturadas por este modelo. Depois de realizado um refinamento ao remover os coeficientes não segnificantes a $5\%$ o modelo parcimonioso ficou (erro padrão entre parênteses):
+Foi estimado um modelo de vetor de correção de erros a partir do vetor de cointegração encontrado anteriormente. Tanto a relação de longo prazo, quanto a dinâmica de curto prazo são capturadas por este modelo. Depois de realizado um refinamento ao remover os coeficientes não segnificantes a $5\%$ o modelo parcimonioso ficou (erro padrão entre parênteses):
 ```{r VECM ols, results='hide'}
 
 wt <- dados_cepea_deflacionado[,"etanol"]-0.03*dados_cepea_deflacionado[,"acucar"]-0.316*dados_cepea_deflacionado[,"soja"]
@@ -417,9 +417,9 @@ refVEC <- refECMvar1(ecmvar) #refinamento
 \Delta p_t^s &=\underset{(0,023)}{0,22}\Delta p_{t-1}^s+\underset{(0,024)}{0,174}\Delta p_{t-2}^s+\underset{(0,023)}{0,23}\Delta p_{t-3}^s+u_t.\nonumber
 \end{align}
 
-em que $\hat{\beta}^Tp_{t-1}$ é a relação de cointegração estimada na equação \eqref{coint}. Dado que os preços são diários o conjunto de equações em \eqref{vecm} representam as mudanças percentuais de um dia para o outro. Com relação ao etanol, a relação de longo prazo entre as variáveis impacta negativamente o retorno do ativo ($\Delta p_t$). O retorno do etanol sofre impacto de seus componentes autorregressivos e do retorno do soja na dfasagem de segunda ordem, porém é um efeito fraco se comparado com os componentes autorregresivos.
+em que $\hat{\beta}^Tp_{t-1}$ é a relação de cointegração estimada na equação \eqref{coint}. Dado que os preços são diários o conjunto de equações em \eqref{vecm} representam as mudanças percentuais de um dia para o outro. Com relação ao etanol, a relação de longo prazo entre as variáveis impacta negativamente o retorno do ativo ($\Delta p_t$). O retorno do etanol sofre impacto de seus componentes autorregressivos e do retorno do soja na defasagem de segunda ordem, porém é um efeito fraco se comparado com os componentes autorregresivos.
 
-O retorno do açúcar também sofre impacto negativo dos co-movimento entre as médias dos preços, assim como o retorno do etanol. Já seus componentes autorregressivos impactam seu retorno de forma positiva, já que o efeitoautorregressivo de primeira ordem sobrepõe o efeito de terceira ordem. O etanom impacta o retorno do açúcar de forma negativa, fato que corrobora a relação direta de oferta entre os dois produtos. Para o açúcar, desta-se ainda um efeito significativo do soja no termo de segunda defasafem, porém, como para o etanol, o efeito é muito fraco e dissipado pelos componentes autorregressivos. Por fim o retorno do soja também possui forte impacto positivo de seus componentes autorregressvos e não apresenta nehuma influência significativa dos demais retornos.
+O retorno do açúcar também sofre impacto negativo dos co-movimento entre as médias dos preços, assim como o retorno do etanol. Já seus componentes autorregressivos impactam seu retorno de forma positiva, já que o efeitoautorregressivo de primeira ordem sobrepõe o efeito de terceira ordem. O etanol impacta o retorno do açúcar de forma negativa, fato que corrobora a relação direta de oferta entre os dois produtos. Para o açúcar, destaca-se ainda um efeito significativo do soja no termo de segunda defasagem, porém, como para o etanol, o efeito é muito fraco e dissipado pelos componentes autorregressivos. Por fim o retorno do soja também possui forte impacto positivo de seus componentes autorregressvos e não apresenta nehuma influência significativa dos demais retornos.
 
 
 ```{r VEM mll, results='hide'}
