@@ -48,7 +48,7 @@ libraries = c("car",
 
 # Dados e Análise Descritiva.
 
-Os dados são de peridiocidade diária, são disponibilizados pela [CEPEA/ESALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de 25/01/2010  a 20/01/2017, porém ao se deflacionarem os dados a série foi reduzida para 29/12/2016 pois não foram encontrados o índice de preço para o ano de 2017. Os dados para o etanol correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM&FBovespa Posto Paulínia (SP). Para o açúcar os dados são o Indicador Açúcar Criatal CEPEA/EXALQ - São Paulo por saca de 50 quilos. Para o soja os dados são o Indicador Soja CEPEA/ESALQ - Paraná por saca de 60 quilos. Ocorreram 15 valores faltante para o soja durante o período, estes dados foram interpolados pelo método *spline* conforme indicado por @zeileis_zoo:_2005.
+Os dados são de peridiocidade diária, são disponibilizados pela [CEPEA/ESALQ](http://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx) e se referem ao período de 25/01/2010  a 20/01/2017, porém ao se deflacionarem os dados a série foi reduzida para 29/12/2016 pois não foram encontrados o índice de preço para o ano de 2017. Os dados para o etanol correspondem ao Indicador Diário do Etanol Hidratado ESALQ/BM&FBovespa Posto Paulínia (SP). Para o açúcar os dados são o Indicador Açúcar Criatal CEPEA/ESALQ - São Paulo por saca de 50 quilos. Para o soja os dados são o Indicador Soja CEPEA/ESALQ - Paraná por saca de 60 quilos. Ocorreram 15 valores faltante para o soja durante o período, estes dados foram interpolados pelo método *spline* conforme indicado por @zeileis_zoo:_2005.
 
 ```{r}
 library(dplyr)
