@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.2.6)  3 FEB 2017 17:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.2.6)  3 FEB 2017 21:46
 entering extended mode
 **artigo_macroeconometria.tex
 (artigo_macroeconometria.tex
@@ -1544,36 +1544,36 @@ Underfull \hbox (badness 1552) in paragraph at lines 48--61
 ríodo (dia, neste caso) e
  []
 
-<grafico1-1.pdf, id=149, 1011.78pt x 433.62pt>
+<grafico1-1.pdf, id=166, 1011.78pt x 433.62pt>
 File: grafico1-1.pdf Graphic file (type pdf)
  <use grafico1-1.pdf>
 Package pdftex.def Info: grafico1-1.pdf used on input line 64.
 (pdftex.def)             Requested size: 455.00346pt x 195.00148pt.
 
-<grafico2-1.pdf, id=150, 1300.86pt x 433.62pt>
+<grafico2-1.pdf, id=167, 1300.86pt x 433.62pt>
 File: grafico2-1.pdf Graphic file (type pdf)
  <use grafico2-1.pdf>
 Package pdftex.def Info: grafico2-1.pdf used on input line 71.
 (pdftex.def)             Requested size: 454.99023pt x 151.6634pt.
  [8 <./grafico1-1.pdf> <./grafico2-1.pdf>] [9] [10] [11]
-<VECM resid-1.pdf, id=219, 1589.94pt x 433.62pt>
+<VECM resid-1.pdf, id=237, 1589.94pt x 433.62pt>
 File: VECM resid-1.pdf Graphic file (type pdf)
  <use VECM resid-1.pdf>
 Package pdftex.def Info: VECM resid-1.pdf used on input line 361.
 (pdftex.def)             Requested size: 455.00568pt x 124.09245pt.
 
 [12 <./VECM resid-1.pdf>]) (bekk_dcc.tex
-<mq2 test-1.pdf, id=237, 469.755pt x 325.215pt>
+<mq2 test-1.pdf, id=255, 469.755pt x 325.215pt>
 File: mq2 test-1.pdf Graphic file (type pdf)
  <use mq2 test-1.pdf>
 Package pdftex.def Info: mq2 test-1.pdf used on input line 28.
 (pdftex.def)             Requested size: 455.00237pt x 315.00163pt.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 39.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 41.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (821.21884pt too wide) in paragraph at lines 40--40
+Overfull \hbox (821.21884pt too wide) in paragraph at lines 42--42
 []\T1/lmtt/m/n/10.95 ## Initial estimates:  -3.370388e-06 9.138433e-05 -2.97267
 3e-05 0.008118471 0.0004654883 0.0005525955 0.008979964 0.0007634438 0.00610518
 7 0.1 0.02 0.02 0.02 0.1 0.02 0.02 0.02 0.1 0.8 0.02 0.02 0.02 0.8 0.02 0.02 0.
@@ -1581,7 +1581,7 @@ Overfull \hbox (821.21884pt too wide) in paragraph at lines 40--40
  []
 
 
-Overfull \hbox (867.20871pt too wide) in paragraph at lines 41--41
+Overfull \hbox (867.20871pt too wide) in paragraph at lines 43--43
 []\T1/lmtt/m/n/10.95 ## Lower limits:  -3.370388e-05 -0.0009138433 -0.000297267
 3 0.001623694 9.309765e-05 0.0001105191 0.001795993 0.0001526888 0.001221037 1e
 -06 -0.5 -0.5 -0.5 1e-06 -0.5 -0.5 -0.5 1e-06 1e-06 -0.5 -0.5 -0.5 1e-06 -0.5 -
@@ -1589,7 +1589,7 @@ Overfull \hbox (867.20871pt too wide) in paragraph at lines 41--41
  []
 
 
-Overfull \hbox (872.95744pt too wide) in paragraph at lines 42--42
+Overfull \hbox (872.95744pt too wide) in paragraph at lines 44--44
 []\T1/lmtt/m/n/10.95 ## Upper limits:  3.370388e-05 0.0009138433 0.0002972673 0
 .008930318 0.0005120371 0.000607855 0.00987796 0.0008397882 0.006715706 0.99999
 9 0.5 0.5 0.5 0.999999 0.5 0.5 0.5 0.999999 0.999999 0.5 0.5 0.5 0.999999 0.5 0
@@ -1597,7 +1597,7 @@ Overfull \hbox (872.95744pt too wide) in paragraph at lines 42--42
  []
 
 [13]
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 74.
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 76.
 
  ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ts1lmtt.fd"
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1606,7 +1606,7 @@ File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 \tf@brf=\write6
 
 bibitemlist
-[15] [16]) [17]
+[15] [16] [17]) [18]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 49.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 49.
  (artigo_macroeconometria.aux)
@@ -1614,7 +1614,7 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 49.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 49.
 Package rerunfilecheck Info: File `artigo_macroeconometria.brf' has not changed
 .
-(rerunfilecheck)             Checksum: C4EC8D90F83E891608A7D1444BC8C4C7;2338.
+(rerunfilecheck)             Checksum: 4F57803E2C1A2FC5DB97A8BD4E8086AE;3203.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1622,13 +1622,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 49.
  ) 
 Here is how much of TeX's memory you used:
- 17667 strings out of 493698
- 265061 string characters out of 3144413
- 537930 words of memory out of 3000000
- 20417 multiletter control sequences out of 15000+200000
+ 17712 strings out of 493698
+ 266332 string characters out of 3144413
+ 538743 words of memory out of 3000000
+ 20457 multiletter control sequences out of 15000+200000
  62823 words of font info for 139 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 48i,12n,41p,1847b,592s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 48i,12n,41p,1847b,599s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{figura1} has been referenced but does not exist, 
 replaced by a fixed one
 
@@ -1650,9 +1650,9 @@ MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lms
 y10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy8.pfb><C:/Progra
 m Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb>
-Output written on artigo_macroeconometria.pdf (17 pages, 511139 bytes).
+Output written on artigo_macroeconometria.pdf (18 pages, 525029 bytes).
 PDF statistics:
- 525 PDF objects out of 1000 (max. 8388607)
- 84 named destinations out of 1000 (max. 500000)
+ 575 PDF objects out of 1000 (max. 8388607)
+ 89 named destinations out of 1000 (max. 500000)
  14453 words of extra memory for PDF output out of 17280 (max. 10000000)
 

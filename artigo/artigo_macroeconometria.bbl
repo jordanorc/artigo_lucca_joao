@@ -91,6 +91,15 @@ Dispon{\'\i}vel em:
 [S.l.], 2007. Dispon{\'\i}vel em:
   \url{http://econpapers.repec.org/paper/pramprapa/5151.htm}.}
 
+\bibitem[Hafner e Linton 2010]{hafner_efficient_2010}
+\abntrefinfo{Hafner e Linton}{HAFNER; LINTON}{2010}
+{HAFNER, C.~M.; LINTON, O. Efficient estimation of a multivariate
+  multiplicative volatility model.
+\emph{Journal of Econometrics}, v.~159, n.~1, p. 55--73, nov. 2010.
+ISSN 0304-4076.
+Dispon{\'\i}vel em:
+  \url{https://www.sciencedirect.com/science/article/pii/S0304407610001132}.}
+
 \bibitem[Herwartz e Lütkepohl 2011]{herwartz_generalized_2011}
 \abntrefinfo{Herwartz e Lütkepohl}{HERWARTZ; LüTKEPOHL}{2011}
 {HERWARTZ, H.; LüTKEPOHL, H. Generalized least squares estimation for
@@ -99,6 +108,13 @@ Dispon{\'\i}vel em:
 ISSN 1467-9892.
 Dispon{\'\i}vel em:
   \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9892.2010.00698.x/abstract}.}
+
+\bibitem[Johansen 1996]{johansen_likelihood-based_1996}
+\abntrefinfo{Johansen}{JOHANSEN}{1996}
+{JOHANSEN, S. \emph{Likelihood-based {Inference} in {Cointegrated} {Vector}
+  {Autoregressive} {Models}}. [S.l.]: Oxford University Press, 1996.
+  Google-Books-ID: nyOlxK\_RtMUC.
+ISBN 978-0-19-877450-1.}
 
 \bibitem[McLeod e Li 1983]{mcleod_diagnostic_1983}
 \abntrefinfo{McLeod e Li}{MCLEOD; LI}{1983}
@@ -117,6 +133,15 @@ Dispon{\'\i}vel em:
 ISSN 0034-7140.
 Dispon{\'\i}vel em:
   \url{http://www.scielo.br/scielo.php?script=sci\_abstract&pid=S0034-71402004000100005&lng=en&nrm=iso&tlng=pt}.}
+
+\bibitem[Seo 2007]{seo_asymptotic_2007}
+\abntrefinfo{Seo}{SEO}{2007}
+{SEO, B. Asymptotic distribution of the cointegrating vector estimator in error
+  correction models with conditional heteroskedasticity.
+\emph{Journal of Econometrics}, v.~137, n.~1, p. 68--111, mar. 2007.
+ISSN 0304-4076.
+Dispon{\'\i}vel em:
+  \url{https://www.sciencedirect.com/science/article/pii/S030440760600039X}.}
 
 \bibitem[Serra 2011]{serra_volatility_2011}
 \abntrefinfo{Serra}{SERRA}{2011}
@@ -141,7 +166,7 @@ Dispon{\'\i}vel em:
 \abntrefinfo{Serra e Zilberman}{SERRA; ZILBERMAN}{2013}
 {SERRA, T.; ZILBERMAN, D. Biofuel-related price transmission literature: {A}
   review.
-\emph{Energy Economics}, v.~37, p. 141--151, may 2013.
+\emph{Energy Economics}, v.~37, p. 141--151, maio 2013.
 ISSN 0140-9883.
 Dispon{\'\i}vel em:
   \url{//www.sciencedirect.com/science/article/pii/S0140988313000388}.}
@@ -161,11 +186,18 @@ Dispon{\'\i}vel em:
   {R}}. 1 edition. ed. Hoboken, N.J: Wiley, 2012.
 ISBN 978-0-470-89081-3.}
 
+\bibitem[Tsay 2013]{tsay_multivariate_2013}
+\abntrefinfo{Tsay}{TSAY}{2013}
+{TSAY, R.~S. \emph{Multivariate {Time} {Series} {Analysis}: {With} {R} and
+  {Financial} {Applications}}. [S.l.]: John Wiley \& Sons, 2013.
+  Google-Books-ID: A4QVAgAAQBAJ.
+ISBN 978-1-118-61775-5.}
+
 \bibitem[Wu, Guan e Myers 2011]{wu_volatility_2011}
 \abntrefinfo{Wu, Guan e Myers}{WU; GUAN; MYERS}{2011}
 {WU, F.; GUAN, Z.; MYERS, R.~J. Volatility spillover effects and cross hedging
   in corn and crude oil futures.
-\emph{Journal of Futures Markets}, v.~31, n.~11, p. 1052--1075, nov 2011.
+\emph{Journal of Futures Markets}, v.~31, n.~11, p. 1052--1075, nov. 2011.
 ISSN 1096-9934.
 Dispon{\'\i}vel em:
   \url{http://onlinelibrary.wiley.com/doi/10.1002/fut.20499/abstract}.}
@@ -182,7 +214,7 @@ Dispon{\'\i}vel em:
 \abntrefinfo{Zhang et al.}{ZHANG et al.}{2009}
 {ZHANG, Z. et al. Ethanol, {Corn}, and {Soybean} {Price} {Relations} in a
   {Volatile} {Vehicle}-{Fuels} {Market}.
-\emph{Energies}, v.~2, n.~2, p. 320--339, jun 2009.
+\emph{Energies}, v.~2, n.~2, p. 320--339, jun. 2009.
 Dispon{\'\i}vel em: \url{http://www.mdpi.com/1996-1073/2/2/320}.}
 
 \end{thebibliography}
